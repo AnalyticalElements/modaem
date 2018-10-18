@@ -1,0 +1,1194 @@
+%% LyX 1.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,oneside,english]{book}
+\usepackage{pslatex}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\pagestyle{headings}
+\usepackage{babel}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+\usepackage{setspace}
+\onehalfspacing
+
+\makeatletter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ \newenvironment{lyxcode}
+   {\begin{list}{}{
+     \setlength{\rightmargin}{\leftmargin}
+     \raggedright
+     \setlength{\itemsep}{0pt}
+     \setlength{\parsep}{0pt}
+     \verbatim@font}%
+    \item[]}
+   {\end{list}}
+
+\makeatother
+
+\begin{document}
+
+
+\title{ModAEM Users Guide\\
+Version 1.4pre2}
+
+
+\author{Phil DiLavore\\
+Vic Kelson\\
+WHPA Inc.}
+
+
+\date{August 10, 2001}
+
+\maketitle
+\tableofcontents{}
+
+\listoffigures{}
+
+\listoftables{}
+
+
+\chapter{Introduction\label{chapter::introduction}}
+
+
+\section{Supported Analytic Elements}
+
+This section will describe the analytic elements supported by ModAEM.
+
+
+\chapter{Package Description - Analytic Elements\label{chapter:package-description}}
+
+This chapter will describe analytic element modeling with ModAEM.
+
+
+\chapter{Input Formats\label{chapter:input-formats}}
+
+
+\section{Input Files\label{sec:input-files}}
+
+This section describes the files that are required as input for ModAEM.
+
+
+\subsection{MODAEM.NAM\label{sec:modaem.nam}}
+
+This file is used by ModAEM to retrieve the name of the file which contains
+the input which describes the analytic element model. At this time, the file
+name 'modaem.nam' is hard coded into ModAEM. modaem.nam is a flat text file
+that can be created with any text editor. modaem.nam must have a single line
+of text which specifies the name of the AEM input file. For example, if the
+model input data are contained in a file called 'modaem.aem', then the contents
+of modaem.nam would be:
+
+\begin{lyxcode}
+modaem
+\end{lyxcode}
+The extension '.aem' is appended to the file name found in modaem.nam.
+
+
+\section{AEM input file\label{sec:AEM-input-file}}
+
+The AEM input file is used to input the model elements and commands to ModAEM.
+The AEM input file can have any name (specified in the modaem.nam file) with
+the extension '.aem'. The AEM input file is a flat text file that can be created
+with any text editor. Commands are entered one to a line, with carriage-control/line-feed
+characters at the end of each line. The valid commands that can be entered are
+as follows.
+
+
+\subsection{Input commands\label{sec:input-commands}}
+
+Input commands are entered into the AEM input file using any standard text editor.
+Some commands can be (and indeed must be) nested within other commands. For
+instance, commands which create elements must be nested within the 'aem' command.
+It is recommended (though not required) that nested commands be indented. Commands
+which start modules (i.e. 'aem') are ended with the 'end' command. Commands
+are not case-sensitive - upper or lower case (or mixed case) can be used.
+
+
+\subsection{Commands which are common to all input modules\label{module:common}}
+
+The following commands are available in all ModAEM input modules.
+
+
+\subsubsection{Comments\label{command:common-comment}}
+
+Comment lines in the AEM input file start with a hash mark (\#) in the first
+column. Comment lines are ignored. For example:
+
+\begin{lyxcode}
+\#~This~is~a~comment~line
+\end{lyxcode}
+
+\subsubsection{END -- Exit a module section\label{command:common-end}}
+
+The END directive causes ModAEM to leave the module that it is currently in.
+For example, when in the WL0 module (which is started with the WL0 command,
+the END command signals the end of input for the element modules:
+
+\begin{lyxcode}
+\#~the~aem~section~is~used~to~define~the~problem
+
+aem
+
+~~\#~other~module~sections~go~here...
+
+~~wl0~10
+
+~~~~...~well~data~goes~in~here~...
+
+~~~~\#~end~of~well~data
+
+~~end
+
+~~\#~end~of~aem~data
+
+end
+
+\#~processing~directives~go~here
+
+
+\end{lyxcode}
+
+\subsubsection{PCD -- Set program behavior on runtime error detections\label{command:common-pcd}}
+
+Sets the 'proceed' flag for the error handler (useful for debugging input files).
+The standard behavior of ModAEM is to terminate on any error detected during
+execution. The PCD command takes a single logical argument:
+
+\begin{lyxcode}
+\#~Allow~execution~to~proceed~on~error
+
+PCD~t
+
+\#~Terminate~execution~on~error
+
+PCD~f
+\end{lyxcode}
+
+\subsubsection{DBG -- enable debug code\label{command:common-dbg}}
+
+The DBG command is used to turn code marked as 'debug' code on or off during
+execution (useful for program debugging). The ModAEM code contains many assertions
+which test to ensure that the ModAEM's internal data structures are 
+
+
+\subsection{Top-level ModAEM commands\label{module:top-level}}
+
+In ModAEM, each element module has its own 'Read' routine, which populates the
+data structures associated with that module. The top--level ModAEM commands
+discussed here are used only when ModAEM is running as a stand-alone program. 
+
+
+\subsubsection{AEM -- begin defining a model problem domain\label{command:top-aem}}
+
+The AEM command is used to enter the AEM\_Read routine, in order to populate
+all elements associated with the model domain (see the AEM module discussion
+in Section \ref{module:aem}).
+
+Usage (this command takes no arguments):
+
+\begin{lyxcode}
+aem
+
+~~...~put~model~definition~commands~here~...
+
+end
+\end{lyxcode}
+
+\subsubsection{SOL -- solve the model\label{command:top-sol}}
+
+After a model has been defined (using the AEM module input section), it must
+be solved prior to performing any analyses. ModAEM uses an iterative solution
+scheme --- at each iteration, the solution is improved based on the previous
+iteration.
+
+\begin{lyxcode}
+sol~{[}number~of~iterations{]}
+\end{lyxcode}
+Example:
+
+\begin{lyxcode}
+aem
+
+~~...~put~model~definition~commands~here~...
+
+end
+
+\#~solve~using~4~iterations
+
+sol~4
+\end{lyxcode}
+
+\subsubsection{HEA -- report the head at a point in the model\label{command:top-hea}}
+
+Directs ModAEM to report the hydraulic head at a specified point. Note: a solution
+must be present prior to using this command. The command:
+
+\begin{lyxcode}
+hea~{[}z{]}
+\end{lyxcode}
+reports the head at the complex coordinate \( z=x+iy \). Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+HEA~(100.0,100.0)
+\end{lyxcode}
+reports the head at the coordinate \( (100,100) \).
+
+
+\subsubsection{POT -- report the discharge potential\label{command:top-pot}}
+
+Directs ModAEM to report the discharge potential at a specified point. Note:
+a solution must be present prior to using this command (see the SOL command
+in Section \ref{command:top-sol}). The command:
+
+\begin{lyxcode}
+pot~{[}z{]}
+\end{lyxcode}
+reports the head at the complex coordinate \( z=x+iy \). Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+pot~(100.0,100.0)
+\end{lyxcode}
+reports the head at the coordinate \( (100,100) \).
+
+
+\subsubsection{GRA -- report the numerical gradient (potential) \label{command:top-gra}}
+
+Directs ModAEM to report the numerical gradient (potential) at a specified point.
+Used in program debugging; the numerical gradient should have the same value
+as the total discharge (see the DIS command in \ref{command:top-dis}). Note:
+a solution must be present prior to using this command (see th SOL command in
+Section \ref{command:top-sol}). The command:
+
+\begin{lyxcode}
+gra~{[}z{]}~delta
+\end{lyxcode}
+reports the gradient at the complex coordinate \( z=x+iy \). Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+gra~(100.0,100.0)~1.0
+\end{lyxcode}
+reports the gradient at the coordinate \( (100,100) \).
+
+\begin{lyxcode}
+
+\end{lyxcode}
+
+\subsubsection{DIS -- report the complex discharge \label{command:top-dis}}
+
+Directs ModAEM to report the complex discharge at a specified point. Note: a
+solution must be present prior to using this command (see th SOL command in
+Section \ref{command:top-sol}). The command:
+
+\begin{lyxcode}
+dis~{[}z{]}
+\end{lyxcode}
+reports the gradient at the complex coordinate \( z=x+iy \). Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+dis~(100.0,100.0)
+\end{lyxcode}
+reports the discharge at the coordinate \( (100,100) \).
+
+\begin{lyxcode}
+DIS~(100.0,100.0)
+\end{lyxcode}
+
+\subsubsection{FLO -- report the total flow\label{command:top-flo}}
+
+Directs ModAEM to report the total flow between two specified points. SOL must
+be called before FLO. Note: a solution must be present prior to using this command
+(see th SOL command in Section \ref{command:top-sol}). The command:
+
+\begin{lyxcode}
+flo~{[}z1{]}~{[}z2{]}~
+\end{lyxcode}
+reports the gradient at the complex coordinate \( z_{1}=x_{1}+iy_{1} \) and
+\( z_{2}=x_{2}+iy_{2} \). Note that in Fortran free--format reads, the two
+parts of the complex coordinate are provided as \( (x,y) \) pairs. Thus, the
+command
+
+\begin{lyxcode}
+flo~(50.0,50.0)~(100.0,100.0)
+\end{lyxcode}
+reports the discharge between the coordinates \( (50,50) \) and \( (100,100) \).
+
+
+\subsubsection{GRI -- Enter the grid generation module\label{command:top-gri}}
+
+The GRI command enters the submodule GRI, which provides for the creation of
+2--D SURFER\texttrademark-- or MATLAB\texttrademark--compatible grid files.
+See Section \ref{module:gri} for details. Usage:
+
+\begin{lyxcode}
+GRI
+\end{lyxcode}
+
+\subsection{Module GRI -- Make a SURFER\texttrademark-- or MATLAB\texttrademark--compatible
+grid\label{module:gri}}
+
+This command instructs ModAEM to enter the grid module. Within the grid module,
+grids of various results values from the model are created. The GRI command
+must have a matching END command. Within the grid module, the window to be gridded
+must be specified, along with the dimension of the grid. The following commands
+occur within the grid module.
+
+
+\subsubsection{OPT -- specifiy SURFER\texttrademark-- or MATLAB\texttrademark--compatible
+grid}
+
+This command instructs the grid module which type of grid to create. Usage:
+
+\begin{lyxcode}
+OPT~grid-type
+\end{lyxcode}
+\begin{description}
+\item [grid-type]Choose 'surfer' for SURFER\texttrademark--compatible grids and 'matlab'
+for MATLAB\texttrademark--compatible grids. SURFER\texttrademark--compatible
+output files will be named with the '.GRD' extension while for MATLAB\texttrademark--compatible
+output files will be named with the '.m' extension. If the OPT command is omitted,
+the grid-type will default to 'surfer'.
+\end{description}
+
+\subsubsection{WIN -- Define the grid window\label{command:gri-win} }
+
+Defines the window to be gridded. The command :
+
+\begin{lyxcode}
+win~{[}z1{]}~{[}z2{]}
+\end{lyxcode}
+sets the lower-left and upper-right corners of the window to be gridded to the
+complex coordinates \( z_{1}=x_{1}+iy_{1} \) and \( z_{2}=x_{2}+iy_{2} \).Note
+that in Fortran free--format reads, the two parts of the complex coordinate
+are provided as \( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+win~(-100.0,-100.0)~(100.0,100.0)
+\end{lyxcode}
+sets the lower-left and upper-right corners of the window for the GRI module
+at the coordinates \( (-100,-100) \) and \( (100,100) \), respectively.
+
+
+\subsubsection{DIM -- Specify number of grid points\label{command:gri-dim}}
+
+Sets the number of grid points along the long axis of the window. The command
+
+\begin{lyxcode}
+dim~d
+\end{lyxcode}
+sets the number of grid points along the long axis to the value of d, where
+d is a positive integer.
+
+
+\subsubsection{HEA -- Create a grid of heads\label{command:gri-hea}}
+
+
+\subsubsection{POT -- Create a grid of potentials\label{command:gri-pot}}
+
+
+\subsubsection{PSI -- Create a grid of stream functions\label{command:gri-psi}}
+
+
+\subsubsection{Q\_X -- Create a grid of discharges\label{command:gri-q_x}}
+
+
+\subsubsection{Q\_Y -- Create a grid of discharges\label{command:gri-q_y}}
+
+Sample grid module commands to create SURFER\texttrademark--compatible grids
+of heads, potentials, stream functions, and discharges:
+
+\begin{lyxcode}
+GRI
+
+~~~WIN~(-100.0,-100.0)~(100.0,100.0)
+
+~~~DIM~50
+
+~~~HEA~modaem
+
+~~~POT~modaem
+
+~~~PSI~modaem
+
+~~~Q\_X~modaem
+
+~~~Q\_Y~modaem
+
+END
+\end{lyxcode}
+The parameters passed to the HEA, POT, PSI, Q\_X, and Q\_Y commands specify
+the name of the output file for the grids.
+
+
+\subsection{Module TR0 -- Trace\label{module:tr0}}
+
+The TR0 command instructs ModAEM to enter the trace module, which is used to
+trace 2-D streamlines. The TR0 command must have a matching END command. Within
+the TR0 module, the following commands are valid:
+
+
+\subsubsection{WIN -- Set the tracing window. }
+
+Default tuning parameters are derived from the window size.
+
+
+\subsubsection{TUN -- Set tuning parameters}
+
+Sets tuning parameters for the tracing algorithm. Usage:
+
+\begin{lyxcode}
+TUN~step~prox~frac~small
+\end{lyxcode}
+\begin{description}
+\item [step]The base step size
+\item [prox]The proximity (in terms of the current step size) to boundary conditions
+for reducing the step size
+\item [frac]The factor for step size reductions
+\item [small]Smallest allowable step size
+\end{description}
+
+\subsubsection{TIM -- Specify maximum time allowed for particle tracing}
+
+
+\subsubsection{POI -- Release a single particle at the specified location}
+
+
+\subsubsection{LIN -- Release particles along a line}
+
+N particles along a line
+
+
+\subsubsection{GRI -- Release a grid of particles in the sub-window}
+
+
+\subsubsection{WL0 -- Release N particles in reverse from the well bore of a WL0 element.}
+
+
+\subsection{Module AEM -- Input a problem definition\label{module:aem}}
+
+The AEM module corresponds to the AEM\_DOMAIN object within ModAEM. An AEM\_DOMAIN
+object contains all of the information associated with a 2--D analytic element
+model. As a result, all of the AEM module commands are associated with the specification
+of the model elements. The AEM module is entered with the AEM command (see Section
+\ref{command:top-aem})
+
+
+\subsubsection{AQU -- Enter the AQU module\label{command:aem-aqu}}
+
+The AQU command is used to enter the AQU\_Read routine, in order set properties
+associated with the model domain. A number of commands can be used within the
+AQU module to describe features of the model domain (see the AQU module discussion
+in Section \ref{module:aqu}).
+
+Usage:
+
+\begin{lyxcode}
+aqu~domains~base~thickness~conductivity~porosity
+
+~~...~put~aquifer~definition~commands~here~...
+
+end
+\end{lyxcode}
+The parameters on the AQU command describe the aquifer properties. The AQU command
+must occur within the AEM module. The AQU command must have a corresponding
+END command. 
+
+\begin{lyxcode}
+
+\end{lyxcode}
+Parameters for the AQU command:
+
+\begin{description}
+\item [domains]The (integer) number of domains in the aquifer
+\item [base]The base elevation (real) of the aquifer
+\item [thickness]The thickness (real) of the aquifer
+\item [conductivity]The hydraulic conductivity (real) of the aquifer
+\item [porosity]Porosity (real) of the aquifer
+\end{description}
+Example AQU command (with no inhomogeneities - i.e. 1 domain):
+
+\begin{lyxcode}
+AQU~1~0.0~10.0~100.0~0.25
+
+END
+\end{lyxcode}
+See section \ref{module:aqu} for a description of valid commands in the AQU
+module.
+
+
+\subsubsection{WL0 -- Enter the WL0 (discharge-specified well) module.\label{command:aem-wl0}}
+
+This command occurs within the AEM module. It is used to enter the WL0\_Read
+routine in order to set the properties of discharge-specified well elements
+in the model. The WL0 command must have a matching END command. Non-comment
+lines between the WL0 command and the END command specify the parameters of
+the wells in the module. Usage:
+
+\begin{lyxcode}
+WL0~wells
+\end{lyxcode}
+Parameters for the WL0 command:
+
+\begin{description}
+\item [wells]The (integer) number of wells
+\end{description}
+Sample WL0 command:
+
+\begin{lyxcode}
+WL0~10
+
+~~~...~well~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for WL0 well data is described in section \ref{module:pd0}
+
+
+\subsubsection{WL1 -- Enter the WL1 (Head-specified well) module.\label{command:aem-wl1}}
+
+This command occurs within the AEM module. It is used to enter the the WL1\_Read
+routine in order to set the properties of head-specified well elements in the
+model. The WL1 command must have a matching END command. Non-comment lines between
+the WL1 command and the END command specify the parameters of the wells in the
+module. Usage:
+
+\begin{lyxcode}
+WL1~wells
+\end{lyxcode}
+Parameters for the WL1 command:
+
+\begin{description}
+\item [wells]The (integer) number of wells
+\end{description}
+Example WL1 command:
+
+\begin{lyxcode}
+WL1~10
+
+~~~...~Well~info~goes~here~...
+
+END
+\end{lyxcode}
+The input for for WL1 well data is described in section \ref{module:wl1}
+
+
+\subsubsection{LS0 -- Enter the LS0 (discharge-specified line-sink) module\label{command:aem-ls0}}
+
+This command occurs within the AEM module. It is used to enter the LS0\_Read
+routine in order to set the properties of discharge-specified line-sink elements
+in the model. The LS0 command must have a matching END command. Usage:
+
+\begin{lyxcode}
+LS0~strings
+\end{lyxcode}
+Parameters for the LS0 command
+
+Parameters for the LS0 command:
+
+\begin{description}
+\item [strings]The number of strings of line-sinks in the LS0 module.
+\end{description}
+Sample LS0 command
+
+\begin{lyxcode}
+LS0~10~~~
+
+~~~...~String~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for LS0 data is specified in section \ref{module:ls0}
+
+
+\subsubsection{LS1 -- Enter the LS1 (head-specified line-sink) module\label{command:aem-ls1} }
+
+This command occurs within the AEM module. It is used to enter the LS1\_Read
+routine in order to set the properties of head-specified line-sink elements
+in the model. The LS1 command must have a matching END command. Usage:
+
+\begin{lyxcode}
+LS1~strings
+\end{lyxcode}
+Parameters for the LS1 command:
+
+\begin{description}
+\item [strings]The number of strings of line-sinks
+\end{description}
+Sample LS1 command:
+
+\begin{lyxcode}
+LS1~10
+
+~~~...~string~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for LS1 data is specified in section \ref{module:hb0}.
+
+
+\subsubsection{LS2 - Enter the resistance line-sink module\label{command:aem-ls2}}
+
+This command occurs within the AEM module. It is used to enter the properties
+of head-specified line-sink elements with resistance. The LS2 command must have
+a matching END command. Usage:
+
+\begin{lyxcode}
+LS2~strings
+\end{lyxcode}
+Parameters for the LS2 command:
+
+\begin{description}
+\item [strings]The number of strings of line-sinks
+\end{description}
+Sample LS1 command:
+
+\begin{lyxcode}
+LS2~10
+
+~~~...~string~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for LS2 Strings is specified in section \ref{module:ls2}
+
+
+\subsubsection{HB0 - Enter the HB0 (No-flow boundary) module\label{command:aem-hb0} }
+
+This command is used to enter the HB0\_Read routine in order to set the properties
+of no-flow boundaries in the model. The HB0 command must have a matching END
+command. Usage:
+
+\begin{lyxcode}
+HB0~strings
+\end{lyxcode}
+Parameters for the HB0 command:
+
+\begin{description}
+\item [strings]The number of strings of vertices defining the no-flow boundaries
+\end{description}
+Sample HB0 command
+
+\begin{lyxcode}
+HB0~10~
+
+~~~...~String~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for data lines in HB0 module is specified in section \ref{module:hb0}.
+
+
+\subsubsection{PD0 -- Enter the PD0 (Discharge-specified pond) module\label{command:aem-pd0}}
+
+This command occurs within the AEM module. It is used to enter the PD0\_Read
+routine in order to set the properties of discharge-specified pond elements
+in the model. The PD0 command must have a matching END command. Non-comment
+lines between the PD0 command and the END command specify the parameters of
+the wells in the module. Usage:
+
+\begin{lyxcode}
+PD0~ponds
+\end{lyxcode}
+Parameters for the PD0 command:
+
+\begin{description}
+\item [ponds]The (integer) number of ponds
+\end{description}
+Sample PD0 command:
+
+\begin{lyxcode}
+PD0~10
+
+~~~...~pond~info~goes~here~...
+
+END
+\end{lyxcode}
+The input format for PD0 pond data is described in section\ref{module:pd0}
+
+
+\subsubsection{AS0 -- Enter the AS0 (discharge-specified area sink) module\label{command:aem-as0} }
+
+This command occurs within the AEM module. It is used to enter the AS0\_Read
+routine in order to set the properties of discharge-specified area sink elements
+in the model. The AS0 command must have a matching END command. Non-comment
+lines between the AS0 command and the END command specify the vertices which
+define the boundaries of the discharge-specified area sink. Usage:
+
+\begin{lyxcode}
+AS0~Vertices~Top-Recharge~Bottom-Recharge
+\end{lyxcode}
+Parameters for the AS0 command:
+
+\begin{description}
+\item [Vertices]The (integer) number of vertices which delineate the boundaries of
+the area sink
+\item [Top-Recharge]The (real) recharge rate through the top of the area sink.
+\item [Bottom-Recharge]The (real) recharge rate through the bottom of the area sink.
+\end{description}
+Sample AS0 command:
+
+\begin{lyxcode}
+AS0~10~1.0~1.0
+
+~~~(10,10)
+
+~~~(20,20)
+
+~~~...~
+
+END
+\end{lyxcode}
+The data lines within the AS0 module take the form:
+
+\begin{lyxcode}
+{[}z{]}
+\end{lyxcode}
+where the location of the vertex is given by \( z=x+iy \) with given discharge
+(real), radius (real), and id (integer).Note that in Fortran free--format reads,
+the two parts of the complex coordinate are provided as \( (x,y) \) pairs.
+Thus, the command
+
+\begin{lyxcode}
+(10,10)
+\end{lyxcode}
+defines a vertex of the boundary of the discharge-specified area sink at \( (10,10) \).
+
+
+\subsection{AQU Module\label{module:aqu}}
+
+
+\subsubsection{REF -- Reference point command\label{command:aqu-ref}}
+
+The REF command occurs within the AQU module. The REF command is optional. It
+gives the head at a reference point and the (optional) uniform flow for the
+aquifer. Usage:
+
+\begin{lyxcode}
+REF~{[}z{]}~head~\{{[}Q{]}\}
+\end{lyxcode}
+Parameters for the REF command:
+
+\begin{description}
+\item [{[}z{]}]the location, \( z=x+iy \) of the reference point. Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. 
+\item [head]The (real) head at the reference point.
+\item [{[}Q{]}(optional)]The (complex) uniform flow, \( Q=Q_{x}+iQ_{y} \) at the
+reference point. Note that in Fortran free--format reads, the two parts of the
+complex coordinate are provided as \( (x,y) \) pairs. 
+\end{description}
+Sample REF command:
+
+\begin{lyxcode}
+REF~(0,0)~100.0
+\end{lyxcode}
+Establishes a reference point at coordinate \( (0,0) \) with head \( 100 \),
+and gives no uniform flow.
+
+\emph{Vic - you'd better explain the uniform flow argument.}
+
+
+\subsubsection{BDY - Boundary command\label{command:aqu-bdy}}
+
+The BDY command is used to delineate the elements at the boundary of a finite
+aquifer. It must occur within the AQU module. The BDY command is followed by
+a string of data records and ends when another command is encountered. Each
+data line consists of two end-points, a reference head (real), a flux (real)
+and a logical flag . Sample BDY command:
+
+\begin{lyxcode}
+AQU~...
+
+~~~REF~...
+
+~~~BDY
+
+~~~~~~(10,10)~(20,20)~100.0
+
+~~~~~~(20,20)~(30,30)~99.5
+
+~~~~~~~...
+
+END
+\end{lyxcode}
+\emph{Vic - here's another one that could use a better explanation than I know
+how to give.}
+
+
+\subsubsection{PRM -- Perimeter command\label{command:aqu-prm} }
+
+The PRM command is used to delineate the perimeter of a finite aquifer. It occurs
+within the AQU module. An error results if the perimeter is specified and the
+user requests any flow conditions outside the perimeter. Usage:
+
+\begin{lyxcode}
+PRM~default-val
+\end{lyxcode}
+Parameters for the PRM command:
+
+\begin{description}
+\item [default-val]The default value to be used if the user requests a value (head,
+potential, recharge, velocity, discharge) at a point outside the perimeter.
+Use an easily recognizable number (e.g. -9999).
+\end{description}
+Sample PRM command:
+
+\begin{lyxcode}
+AEM~...
+
+~~~REF~...
+
+~~~PRM~-9999
+
+~~~~~~(1000,1000)
+
+~~~~~~(1000,-1000)
+
+~~~~~~(-1000,~-1000)
+
+~~~~~~(-1000,~1000)
+
+END
+\end{lyxcode}
+
+\subsubsection{IN0 -- Enter the IN0 (inhomogeneity) module\label{command:aqu-in0}}
+
+Used to enter the inhomogeneity module. The IN0 command occurs within the AQU
+module and must have a corresponding END command. This command takes no parameters.
+
+
+\subsection{IN0 Module\label{module:in0}}
+
+Inhomogeneities in the model domain are delineated in the IN0 module.
+
+
+\subsubsection{DOM -- Define inhomogeneity.}
+
+The DOM command is used to define an inhomogeneity in the aquifer. It must occur
+within the IN0 module. There should be one DOM command for each inhomogeneity
+specified in the AQU command. The DOM command is allow only within the IN0 module.
+Usage:
+
+\begin{lyxcode}
+DOM~Vertices~Base~Thickness~Conductivity~Porosity
+\end{lyxcode}
+Parameters for the DOM command:
+
+\begin{description}
+\item [Domains]The (integer) number of vertices which delineate the boundaries of
+the inhomogeneity
+\item [Base]The base elevation (real) of the aquifer
+\item [Thickness]The thickness (real) of the aquifer
+\item [Conductivity]The hydraulic conductivity (real) of the aquifer
+\item [Porosity]Porosity (real) of the aquifer
+\end{description}
+Sample DOM command:
+
+\begin{lyxcode}
+AQU~2~0.0~10.0~100.0~0.25
+
+~~~IN0
+
+~~~~~~DOM~10~0.0~10.0~50.0~0.25
+
+~~~~~~~~~(10,10)
+
+~~~~~~~~~(20,20)
+
+~~~~~~~~~...~
+
+~~~END
+
+END
+\end{lyxcode}
+
+\subsection{WL0 Module\label{module:wl0}}
+
+The WL0 module is used to add discharge-specified wells to the analytic element
+model. See section \ref{command:aem-wl0}for a description of the WL0 command
+used to enter the WL0 module. Within the WL0 module, only data lines can be
+entered. Data lines take the form:
+
+\begin{lyxcode}
+{[}z{]}~discharge~radius~id
+\end{lyxcode}
+defines a discharge-specified well at location \( z=x+iy \) with given discharge
+(real), radius (real), and id (integer).Note that in Fortran free--format reads,
+the two parts of the complex coordinate are provided as \( (x,y) \) pairs.
+Thus, the command
+
+\begin{lyxcode}
+(50,50)~100.0~0.1~1~
+\end{lyxcode}
+defines well \( 1 \) at coordinate \( (50,50) \) with discharge \( 100.0 \)
+and radius \( 0.1 \).
+
+
+\subsection{WL1 Module\label{module:wl1}}
+
+The WL1 module is used to add head-specified wells to the analytic element model.
+See section \ref{command:aem-wl1} for a description of the WL1 command used
+to enter the WL1 module. Within the WL1 module, only data line can be entered.
+Data lines take the form:
+
+\begin{lyxcode}
+{[}z1{]}~radius~{[}z2{]}~head~id
+\end{lyxcode}
+defines a well at location \( z_{1}=x_{1}+iy_{1} \) with given radius (real)
+and with head (real) specified at location \( z_{2}=x_{2}+iy_{2} \)and id (integer).
+Note that in Fortran free--format reads, the two parts of the complex coordinate
+are provided as \( (x,y) \) pairs. Thus, the line
+
+\begin{lyxcode}
+(50.0,50.0)~0.1~(100.0,100.0)~100.0~1
+\end{lyxcode}
+defines well \( 1 \) at coordinate \( (50,50) \) with radius \( 0.1 \) and
+with the head specified at 100 at coordinate \( (100,100) \).
+
+
+\subsection{LS0 Module\label{module:ls0}}
+
+The LS0 module is used to add discharge-specified line sink elements within
+the AEM module. See section \ref{command:aem-ls0} for a description of the
+LS0 command used to enter the LS0 module. Within the LS0 module, the only command
+allowed is the STR command, which is used to define a string of line sinks. 
+
+
+\subsubsection{STR Command -- string of discharge-specified line sinks.}
+
+The STR command within the LS0 module is used to add strings of discharge-specified
+line sinks to the model domain. Usage:
+
+\begin{lyxcode}
+STR~vertices~id
+\end{lyxcode}
+parameters for the STR command:
+
+\begin{description}
+\item [vertices]the number of vertices (integer) for the string
+\item [id]the string id (integer)
+\end{description}
+Sample STR command:
+
+\begin{lyxcode}
+LS0~10
+
+~~~STR~2~1
+
+~~~~~~(10,10)~100
+
+~~~~~~(20,20)~95
+
+~~~STR~10~2
+
+~~~~~~...
+
+~~~STR...~~~
+
+END
+
+
+\end{lyxcode}
+The data records for which occur after each STR command specify the vertices
+for the line sinks within that string. The data record takes the format:
+
+\begin{lyxcode}
+{[}z{]}~discharge
+\end{lyxcode}
+defines a one vertex of a string of discharge-specified line sinks at location
+\( z=x+iy \) with given discharge (real). Note that in Fortran free--format
+reads, the two parts of the complex coordinate are provided as \( (x,y) \)
+pairs.
+
+
+\subsection{LS1 Module\label{module:ls1}}
+
+The LS1 module is used to add head-specified line sink elements within the AEM
+module. See section \ref{command:aem-ls1}for a description of the LS1 command
+used to enter the LS1 module. Within the LS1 module, the only command allowed
+is the STR command, which is used to define a string of line sinks. 
+
+
+\subsubsection{STR Command -- string of head-specified line sinks.}
+
+The STR command within the LS1 module is used to add strings of discharge-specified
+line sinks to the model domain. Usage:
+
+\begin{lyxcode}
+STR~vertices~id
+\end{lyxcode}
+parameters for the STR command:
+
+\begin{description}
+\item [vertices]the number of vertices (integer) for the string
+\item [id]the string id (integer)
+\end{description}
+Sample STR command:
+
+\begin{lyxcode}
+LS1~10
+
+~~~STR~2~1
+
+~~~~~~(10,10)~100
+
+~~~~~~(20,20)~95
+
+~~~STR~10~2
+
+~~~~~~...
+
+~~~STR~...~~~
+
+END
+
+
+\end{lyxcode}
+The data records for which occur after each STR command specify the vertices
+for the line sinks within that string. The data record takes the format:
+
+\begin{lyxcode}
+{[}z{]}~head
+\end{lyxcode}
+defines one vertex of a string of head-specified line sink at location \( z=x+iy \)
+with given head (real). Note that in Fortran free--format reads, the two parts
+of the complex coordinate are provided as \( (x,y) \) pairs.
+
+
+\subsection{LS2 Module\label{module:ls2}}
+
+The LS2 module is used to add head-specified line sink elements with resistance
+within the AEM module. See section \ref{command:aem-ls2}for a description of
+the LS2 command used to enter the LS2 module. Within the LS2 module, the only
+command allowed is the STR command, which is used to define a string of line
+sinks. 
+
+
+\subsubsection{STR Command -- string of head-specified line sinks.}
+
+The STR command within the LS1 module is used to add strings of discharge-specified
+line sinks to the model domain. Usage:
+
+\begin{lyxcode}
+STR~vertices~c~w~d~route-id~drain-en~route-en~id
+\end{lyxcode}
+Parameters for the STR command:
+
+\begin{description}
+\item [vertices]The maximum number of vertices along the modeled stream reach
+\item [c]The 'resistance' of the line-sink, in units of time (e.g. days). This is
+the reciprocal of the MODFLOW 'leakance', and is computed as \( \frac{Thickness}{K} \)where
+\( Thickness \) is the thickness of the resistance layer and \( K \) is the
+vertical hydraulic conductivity? of the resistance layer)
+\item [w]The width of the stream
+\item [d]The 'depth', defined as the distance from the water level in the stream (the
+specified heads at the vertices) to the bottom of the resistance layer. This
+is used to determine whether the line-sink is 'percolating', in a manner similar
+to the MODFLOW RIV package.
+\item [route-id]The ID number of the stream reach below this one in a stream network.
+Set route-id = 1 if there is no downstream route. 
+\item [drain-en]Flag for 'drain' elements. .true. for drains, .false. if not. if the
+drain-en flag is set (\emph{Vic - does this mean true}?), the line-sink cannot
+lose water (as in MODFLOW DRN package).
+\item [route-en]Flag for enabling routine decision-making. This will allow line-sinks
+to be 'turned off' if there is no net flow in the stream reach, according to
+the routing package. This behavior is analogous to the MODFLOW STR package.
+\item [id]The ID number for the stream reach. Note that this is the tool for linking
+in the routing package.
+\end{description}
+
+\subsection{HB0 Module\label{module:hb0}}
+
+The HB0 module is used to no-flow boundary elements within the AEM module. See
+section \ref{command:aem-hb0}for a description of the HB0 command used to enter
+the HB0 module. Within the HB0 module, the only command allowed is the STR command,
+which is used to define a string of vertices defining a no-flow boundary. 
+
+
+\subsubsection{STR Command -- string of no-flow boundary vertices.}
+
+The STR command within the HB0 module is used to add strings of vertices which
+define no-flow boundaries to the model domain. Usage:
+
+\begin{lyxcode}
+STR~vertices~id
+\end{lyxcode}
+parameters for the STR command:
+
+\begin{description}
+\item [vertices]the number of vertices (integer) for the string
+\item [id]the string id (integer)
+\end{description}
+Sample STR command:
+
+\begin{lyxcode}
+HB0~10
+
+~~~STR~2~1
+
+~~~~~~(10,10)
+
+~~~~~~(20,20)
+
+~~~STR~10~2
+
+~~~~~~...
+
+~~~STR~...~~~decison
+
+END
+\end{lyxcode}
+The data records for which occur after each STR command specify the vertices
+for the no-flow boundary defined by that string. The data record takes the format:
+
+\begin{lyxcode}
+{[}z{]}
+\end{lyxcode}
+defines one vertex at location \( z=x+iy \). Note that in Fortran free--format
+reads, the two parts of the complex coordinate are provided as \( (x,y) \)
+pairs.
+
+
+\subsection{PD0 Module\label{module:pd0}}
+
+The PD0 module is used to add discharge-specified ponds to the analytic element
+model. See section \ref{command:aem-pd0}for a description of the PD0 command
+used to enter the PD0 module. Within the PD0 module, only data lines can be
+entered. Data lines take the form:
+
+\begin{lyxcode}
+{[}z{]}~discharge~radius~id
+\end{lyxcode}
+defines a discharge-specified pond with center at location \( z=x+iy \) with
+given discharge (real), radius (real), and id (integer). Note that in Fortran
+free--format reads, the two parts of the complex coordinate are provided as
+\( (x,y) \) pairs. Thus, the command
+
+\begin{lyxcode}
+(50,50)~100.0~100.0~1~
+\end{lyxcode}
+defines pond \( 1 \) at coordinate \( (50,50) \) with discharge \( 100.0 \)
+and radius \( 100.0 \).
+
+
+\chapter{Output Formats}
+
+This chapter will describe ModAEM output files.
+
+
+\chapter{Validation}
+
+This chapter will describe validation of ModAEM results.
+\end{document}

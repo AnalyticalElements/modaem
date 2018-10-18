@@ -1,0 +1,33 @@
+# Test an inhomogeneous aquifer
+ aem 100 100 100 100 100
+   # Note: 2 domains!
+   aqu 2 0.0 10.0 100.0 0.25
+     ref (0.0,0.0) 100.0 (10.0,0.0)
+     in0
+       dom 20 0.0 10.0 500.0 0.25
+         (-40,-20)
+         (-20,-40)
+         (  0,-40)
+         ( 20,-40)
+         ( 40,-20)
+         ( 40,  0)
+         ( 40, 20)
+         ( 20, 40)
+         (  0, 40)
+         (-20, 40)
+         (-40, 20)
+         (-40,  0)
+     end
+   end
+ end
+# Solve it
+ sol 1
+ gri
+   opt matlab
+   win (-100.0,-100.0) (100.0,100.0)
+   dim 51
+   hea modaem
+   psi modaem
+ end
+ rpt
+ eod

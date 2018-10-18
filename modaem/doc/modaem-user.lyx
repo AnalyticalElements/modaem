@@ -1,0 +1,2267 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 2.16
+\textclass book
+\language english
+\inputencoding latin1
+\fontscheme pslatex
+\graphics dvips
+\float_placement page
+\paperfontsize 11
+\spacing onehalf 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+
+\layout Title
+
+ModAEM Users Guide
+\newline 
+Version 1.4pre2
+\layout Author
+
+Phil DiLavore
+\newline 
+Vic Kelson
+\newline 
+WHPA Inc.
+\layout Date
+
+August 10, 2001
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \listoffigures{}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \listoftables{}
+
+\end_inset 
+
+
+\layout Chapter
+
+Introduction
+\begin_inset LatexCommand \label{chapter::introduction}
+
+\end_inset 
+
+
+\layout Section
+
+Supported Analytic Elements
+\layout Standard
+
+This section will describe the analytic elements supported by ModAEM.
+\layout Chapter
+
+Package Description - Analytic Elements
+\begin_inset LatexCommand \label{chapter:package-description}
+
+\end_inset 
+
+
+\layout Standard
+
+This chapter will describe analytic element modeling with ModAEM.
+\layout Chapter
+
+Input Formats
+\begin_inset LatexCommand \label{chapter:input-formats}
+
+\end_inset 
+
+
+\layout Section
+
+Input Files
+\begin_inset LatexCommand \label{sec:input-files}
+
+\end_inset 
+
+
+\layout Standard
+
+This section describes the files that are required as input for ModAEM.
+\layout Subsection
+
+MODAEM.NAM
+\begin_inset LatexCommand \label{sec:modaem.nam}
+
+\end_inset 
+
+
+\layout Standard
+
+This file is used by ModAEM to retrieve the name of the file which contains
+ the input which describes the analytic element model.
+ At this time, the file name 'modaem.nam' is hard coded into ModAEM.
+ modaem.nam is a flat text file that can be created with any text editor.
+ modaem.nam must have a single line of text which specifies the name of the
+ AEM input file.
+ For example, if the model input data are contained in a file called 'modaem.aem'
+, then the contents of modaem.nam would be:
+\layout LyX-Code
+
+modaem
+\layout Standard
+
+The extension '.aem' is appended to the file name found in modaem.nam.
+\layout Section
+
+AEM input file
+\begin_inset LatexCommand \label{sec:AEM-input-file}
+
+\end_inset 
+
+
+\layout Standard
+
+The AEM input file is used to input the model elements and commands to ModAEM.
+ The AEM input file can have any name (specified in the modaem.nam file)
+ with the extension '.aem'.
+ The AEM input file is a flat text file that can be created with any text
+ editor.
+ Commands are entered one to a line, with carriage-control/line-feed characters
+ at the end of each line.
+ The valid commands that can be entered are as follows.
+\layout Subsection
+
+Input commands
+\begin_inset LatexCommand \label{sec:input-commands}
+
+\end_inset 
+
+
+\layout Standard
+
+Input commands are entered into the AEM input file using any standard text
+ editor.
+ Some commands can be (and indeed must be) nested within other commands.
+ For instance, commands which create elements must be nested within the
+ 'aem' command.
+ It is recommended (though not required) that nested commands be indented.
+ Commands which start modules (i.e.
+ 'aem') are ended with the 'end' command.
+ Commands are not case-sensitive - upper or lower case (or mixed case) can
+ be used.
+\layout Subsection
+
+Commands which are common to all input modules
+\begin_inset LatexCommand \label{module:common}
+
+\end_inset 
+
+
+\layout Standard
+
+The following commands are available in all ModAEM input modules.
+\layout Subsubsection
+
+Comments
+\begin_inset LatexCommand \label{command:common-comment}
+
+\end_inset 
+
+
+\layout Standard
+
+Comment lines in the AEM input file start with a hash mark (#) in the first
+ column.
+ Comment lines are ignored.
+ For example:
+\layout LyX-Code
+
+# This is a comment line
+\layout Subsubsection
+
+END -- Exit a module section
+\begin_inset LatexCommand \label{command:common-end}
+
+\end_inset 
+
+
+\layout Standard
+
+The END directive causes ModAEM to leave the module that it is currently
+ in.
+ For example, when in the WL0 module (which is started with the WL0 command,
+ the END command signals the end of input for the element modules:
+\layout LyX-Code
+
+# the aem section is used to define the problem
+\layout LyX-Code
+
+aem
+\layout LyX-Code
+
+  # other module sections go here...
+\layout LyX-Code
+
+  wl0 10
+\layout LyX-Code
+
+    ...
+ well data goes in here ...
+\layout LyX-Code
+
+    # end of well data
+\layout LyX-Code
+
+  end
+\layout LyX-Code
+
+  # end of aem data
+\layout LyX-Code
+
+end
+\layout LyX-Code
+
+# processing directives go here
+\layout LyX-Code
+
+\layout Subsubsection
+
+PCD -- Set program behavior on runtime error detections
+\begin_inset LatexCommand \label{command:common-pcd}
+
+\end_inset 
+
+
+\layout Standard
+
+Sets the 'proceed' flag for the error handler (useful for debugging input
+ files).
+ The standard behavior of ModAEM is to terminate on any error detected during
+ execution.
+ The PCD command takes a single logical argument:
+\layout LyX-Code
+
+# Allow execution to proceed on error
+\layout LyX-Code
+
+PCD t
+\layout LyX-Code
+
+# Terminate execution on error
+\layout LyX-Code
+
+PCD f
+\layout Subsubsection
+
+DBG -- enable debug code
+\begin_inset LatexCommand \label{command:common-dbg}
+
+\end_inset 
+
+
+\layout Standard
+
+The DBG command is used to turn code marked as 'debug' code on or off during
+ execution (useful for program debugging).
+ The ModAEM code contains many assertions which test to ensure that the
+ ModAEM's internal data structures are 
+\layout Subsection
+
+Top-level ModAEM commands
+\begin_inset LatexCommand \label{module:top-level}
+
+\end_inset 
+
+
+\layout Standard
+
+In ModAEM, each element module has its own 'Read' routine, which populates
+ the data structures associated with that module.
+ The top--level ModAEM commands discussed here are used only when ModAEM
+ is running as a stand-alone program.
+ 
+\layout Subsubsection
+
+AEM -- begin defining a model problem domain
+\begin_inset LatexCommand \label{command:top-aem}
+
+\end_inset 
+
+
+\layout Standard
+
+The AEM command is used to enter the AEM_Read routine, in order to populate
+ all elements associated with the model domain (see the AEM module discussion
+ in Section 
+\begin_inset LatexCommand \ref{module:aem}
+
+\end_inset 
+
+).
+\layout Standard
+
+Usage (this command takes no arguments):
+\layout LyX-Code
+
+aem
+\layout LyX-Code
+
+  ...
+ put model definition commands here ...
+\layout LyX-Code
+
+end
+\layout Subsubsection
+
+SOL -- solve the model
+\begin_inset LatexCommand \label{command:top-sol}
+
+\end_inset 
+
+
+\layout Standard
+
+After a model has been defined (using the AEM module input section), it
+ must be solved prior to performing any analyses.
+ ModAEM uses an iterative solution scheme --- at each iteration, the solution
+ is improved based on the previous iteration.
+\layout LyX-Code
+
+sol [number of iterations]
+\layout Standard
+
+Example:
+\layout LyX-Code
+
+aem
+\layout LyX-Code
+
+  ...
+ put model definition commands here ...
+\layout LyX-Code
+
+end
+\layout LyX-Code
+
+# solve using 4 iterations
+\layout LyX-Code
+
+sol 4
+\layout Subsubsection
+
+HEA -- report the head at a point in the model
+\begin_inset LatexCommand \label{command:top-hea}
+
+\end_inset 
+
+
+\layout Standard
+
+Directs ModAEM to report the hydraulic head at a specified point.
+ Note: a solution must be present prior to using this command.
+ The command:
+\layout LyX-Code
+
+hea [z]
+\layout Standard
+
+reports the head at the complex coordinate 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+HEA (100.0,100.0)
+\layout Standard
+
+reports the head at the coordinate 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+POT -- report the discharge potential
+\begin_inset LatexCommand \label{command:top-pot}
+
+\end_inset 
+
+
+\layout Standard
+
+Directs ModAEM to report the discharge potential at a specified point.
+ Note: a solution must be present prior to using this command (see the SOL
+ command in Section 
+\begin_inset LatexCommand \ref{command:top-sol}
+
+\end_inset 
+
+).
+ The command:
+\layout LyX-Code
+
+pot [z]
+\layout Standard
+
+reports the head at the complex coordinate 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+pot (100.0,100.0)
+\layout Standard
+
+reports the head at the coordinate 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+GRA -- report the numerical gradient (potential) 
+\begin_inset LatexCommand \label{command:top-gra}
+
+\end_inset 
+
+
+\layout Standard
+
+Directs ModAEM to report the numerical gradient (potential) at a specified
+ point.
+ Used in program debugging; the numerical gradient should have the same
+ value as the total discharge (see the DIS command in 
+\begin_inset LatexCommand \ref{command:top-dis}
+
+\end_inset 
+
+).
+ Note: a solution must be present prior to using this command (see th SOL
+ command in Section 
+\begin_inset LatexCommand \ref{command:top-sol}
+
+\end_inset 
+
+).
+ The command:
+\layout LyX-Code
+
+gra [z] delta
+\layout Standard
+
+reports the gradient at the complex coordinate 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+gra (100.0,100.0) 1.0
+\layout Standard
+
+reports the gradient at the coordinate 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout LyX-Code
+
+\layout Subsubsection
+
+DIS -- report the complex discharge 
+\begin_inset LatexCommand \label{command:top-dis}
+
+\end_inset 
+
+
+\layout Standard
+
+Directs ModAEM to report the complex discharge at a specified point.
+ Note: a solution must be present prior to using this command (see th SOL
+ command in Section 
+\begin_inset LatexCommand \ref{command:top-sol}
+
+\end_inset 
+
+).
+ The command:
+\layout LyX-Code
+
+dis [z]
+\layout Standard
+
+reports the gradient at the complex coordinate 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+dis (100.0,100.0)
+\layout Standard
+
+reports the discharge at the coordinate 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout LyX-Code
+
+DIS (100.0,100.0)
+\layout Subsubsection
+
+FLO -- report the total flow
+\begin_inset LatexCommand \label{command:top-flo}
+
+\end_inset 
+
+
+\layout Standard
+
+Directs ModAEM to report the total flow between two specified points.
+ SOL must be called before FLO.
+ Note: a solution must be present prior to using this command (see th SOL
+ command in Section 
+\begin_inset LatexCommand \ref{command:top-sol}
+
+\end_inset 
+
+).
+ The command:
+\layout LyX-Code
+
+flo [z1] [z2] 
+\layout Standard
+
+reports the gradient at the complex coordinate 
+\begin_inset Formula \( z_{1}=x_{1}+iy_{1} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( z_{2}=x_{2}+iy_{2} \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+flo (50.0,50.0) (100.0,100.0)
+\layout Standard
+
+reports the discharge between the coordinates 
+\begin_inset Formula \( (50,50) \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout Subsubsection
+
+GRI -- Enter the grid generation module
+\begin_inset LatexCommand \label{command:top-gri}
+
+\end_inset 
+
+
+\layout Standard
+
+The GRI command enters the submodule GRI, which provides for the creation
+ of 2--D SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+-- or MATLAB
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grid files.
+ See Section 
+\begin_inset LatexCommand \ref{module:gri}
+
+\end_inset 
+
+ for details.
+ Usage:
+\layout LyX-Code
+
+GRI
+\layout Subsection
+
+Module GRI -- Make a SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+-- or MATLAB
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grid
+\begin_inset LatexCommand \label{module:gri}
+
+\end_inset 
+
+
+\layout Standard
+
+This command instructs ModAEM to enter the grid module.
+ Within the grid module, grids of various results values from the model
+ are created.
+ The GRI command must have a matching END command.
+ Within the grid module, the window to be gridded must be specified, along
+ with the dimension of the grid.
+ The following commands occur within the grid module.
+\layout Subsubsection
+
+OPT -- specifiy SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+-- or MATLAB
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grid
+\layout Standard
+
+This command instructs the grid module which type of grid to create.
+ Usage:
+\layout LyX-Code
+
+OPT grid-type
+\layout Description
+
+grid-type Choose 'surfer' for SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grids and 'matlab' for MATLAB
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grids.
+ SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible output files will be named with the '.GRD' extension while for
+ MATLAB
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible output files will be named with the '.m' extension.
+ If the OPT command is omitted, the grid-type will default to 'surfer'.
+\layout Subsubsection
+
+WIN -- Define the grid window
+\begin_inset LatexCommand \label{command:gri-win}
+
+\end_inset 
+
+ 
+\layout Standard
+
+Defines the window to be gridded.
+ The command :
+\layout LyX-Code
+
+win [z1] [z2]
+\layout Standard
+
+sets the lower-left and upper-right corners of the window to be gridded
+ to the complex coordinates 
+\begin_inset Formula \( z_{1}=x_{1}+iy_{1} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( z_{2}=x_{2}+iy_{2} \)
+\end_inset 
+
+.Note that in Fortran free--format reads, the two parts of the complex coordinate
+ are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+win (-100.0,-100.0) (100.0,100.0)
+\layout Standard
+
+sets the lower-left and upper-right corners of the window for the GRI module
+ at the coordinates 
+\begin_inset Formula \( (-100,-100) \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+, respectively.
+\layout Subsubsection
+
+DIM -- Specify number of grid points
+\begin_inset LatexCommand \label{command:gri-dim}
+
+\end_inset 
+
+
+\layout Standard
+
+Sets the number of grid points along the long axis of the window.
+ The command
+\layout LyX-Code
+
+dim d
+\layout Standard
+
+sets the number of grid points along the long axis to the value of d, where
+ d is a positive integer.
+\layout Subsubsection
+
+HEA -- Create a grid of heads
+\begin_inset LatexCommand \label{command:gri-hea}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+POT -- Create a grid of potentials
+\begin_inset LatexCommand \label{command:gri-pot}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+PSI -- Create a grid of stream functions
+\begin_inset LatexCommand \label{command:gri-psi}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+Q_X -- Create a grid of discharges
+\begin_inset LatexCommand \label{command:gri-q_x}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+Q_Y -- Create a grid of discharges
+\begin_inset LatexCommand \label{command:gri-q_y}
+
+\end_inset 
+
+
+\layout Standard
+
+Sample grid module commands to create SURFER
+\latex latex 
+
+\backslash 
+texttrademark
+\latex default 
+--compatible grids of heads, potentials, stream functions, and discharges:
+\layout LyX-Code
+
+GRI
+\layout LyX-Code
+
+   WIN (-100.0,-100.0) (100.0,100.0)
+\layout LyX-Code
+
+   DIM 50
+\layout LyX-Code
+
+   HEA modaem
+\layout LyX-Code
+
+   POT modaem
+\layout LyX-Code
+
+   PSI modaem
+\layout LyX-Code
+
+   Q_X modaem
+\layout LyX-Code
+
+   Q_Y modaem
+\layout LyX-Code
+
+END
+\layout Standard
+
+The parameters passed to the HEA, POT, PSI, Q_X, and Q_Y commands specify
+ the name of the output file for the grids.
+\layout Subsection
+
+Module TR0 -- Trace
+\begin_inset LatexCommand \label{module:tr0}
+
+\end_inset 
+
+
+\layout Standard
+
+The TR0 command instructs ModAEM to enter the trace module, which is used
+ to trace 2-D streamlines.
+ The TR0 command must have a matching END command.
+ Within the TR0 module, the following commands are valid:
+\layout Subsubsection
+
+WIN -- Set the tracing window.
+ 
+\layout Standard
+
+Default tuning parameters are derived from the window size.
+\layout Subsubsection
+
+TUN -- Set tuning parameters
+\layout Standard
+
+Sets tuning parameters for the tracing algorithm.
+ Usage:
+\layout LyX-Code
+
+TUN step prox frac small
+\layout Description
+
+step The base step size
+\layout Description
+
+prox The proximity (in terms of the current step size) to boundary conditions
+ for reducing the step size
+\layout Description
+
+frac The factor for step size reductions
+\layout Description
+
+small Smallest allowable step size
+\layout Subsubsection
+
+TIM -- Specify maximum time allowed for particle tracing
+\layout Subsubsection
+
+POI -- Release a single particle at the specified location
+\layout Subsubsection
+
+LIN -- Release particles along a line
+\layout Standard
+
+N particles along a line
+\layout Subsubsection
+
+GRI -- Release a grid of particles in the sub-window
+\layout Subsubsection
+
+WL0 -- Release N particles in reverse from the well bore of a WL0 element.
+\layout Subsection
+
+Module AEM -- Input a problem definition
+\begin_inset LatexCommand \label{module:aem}
+
+\end_inset 
+
+
+\layout Standard
+
+The AEM module corresponds to the AEM_DOMAIN object within ModAEM.
+ An AEM_DOMAIN object contains all of the information associated with a
+ 2--D analytic element model.
+ As a result, all of the AEM module commands are associated with the specificati
+on of the model elements.
+ The AEM module is entered with the AEM command (see Section 
+\begin_inset LatexCommand \ref{command:top-aem}
+
+\end_inset 
+
+)
+\layout Subsubsection
+
+AQU -- Enter the AQU module
+\begin_inset LatexCommand \label{command:aem-aqu}
+
+\end_inset 
+
+
+\layout Standard
+
+The AQU command is used to enter the AQU_Read routine, in order set properties
+ associated with the model domain.
+ A number of commands can be used within the AQU module to describe features
+ of the model domain (see the AQU module discussion in Section 
+\begin_inset LatexCommand \ref{module:aqu}
+
+\end_inset 
+
+).
+\layout Standard
+
+Usage:
+\layout LyX-Code
+
+aqu domains base thickness conductivity porosity
+\layout LyX-Code
+
+  ...
+ put aquifer definition commands here ...
+\layout LyX-Code
+
+end
+\layout Standard
+
+The parameters on the AQU command describe the aquifer properties.
+ The AQU command must occur within the AEM module.
+ The AQU command must have a corresponding END command.
+ 
+\layout LyX-Code
+
+\layout Standard
+
+Parameters for the AQU command:
+\layout Description
+
+domains The (integer) number of domains in the aquifer
+\layout Description
+
+base The base elevation (real) of the aquifer
+\layout Description
+
+thickness The thickness (real) of the aquifer
+\layout Description
+
+conductivity The hydraulic conductivity (real) of the aquifer
+\layout Description
+
+porosity Porosity (real) of the aquifer
+\layout Standard
+
+Example AQU command (with no inhomogeneities - i.e.
+ 1 domain):
+\layout LyX-Code
+
+AQU 1 0.0 10.0 100.0 0.25
+\layout LyX-Code
+
+END
+\layout Standard
+
+See section 
+\begin_inset LatexCommand \ref{module:aqu}
+
+\end_inset 
+
+ for a description of valid commands in the AQU module.
+\layout Subsubsection
+
+WL0 -- Enter the WL0 (discharge-specified well) module.
+\begin_inset LatexCommand \label{command:aem-wl0}
+
+\end_inset 
+
+
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the WL0_Read routine in order to set the properties
+ of discharge-specified well elements in the model.
+ The WL0 command must have a matching END command.
+ Non-comment lines between the WL0 command and the END command specify the
+ parameters of the wells in the module.
+ Usage:
+\layout LyX-Code
+
+WL0 wells
+\layout Standard
+
+Parameters for the WL0 command:
+\layout Description
+
+wells The (integer) number of wells
+\layout Standard
+
+Sample WL0 command:
+\layout LyX-Code
+
+WL0 10
+\layout LyX-Code
+
+   ...
+ well info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for WL0 well data is described in section 
+\begin_inset LatexCommand \ref{module:pd0}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+WL1 -- Enter the WL1 (Head-specified well) module.
+\begin_inset LatexCommand \label{command:aem-wl1}
+
+\end_inset 
+
+
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the the WL1_Read routine in order to set the properties
+ of head-specified well elements in the model.
+ The WL1 command must have a matching END command.
+ Non-comment lines between the WL1 command and the END command specify the
+ parameters of the wells in the module.
+ Usage:
+\layout LyX-Code
+
+WL1 wells
+\layout Standard
+
+Parameters for the WL1 command:
+\layout Description
+
+wells The (integer) number of wells
+\layout Standard
+
+Example WL1 command:
+\layout LyX-Code
+
+WL1 10
+\layout LyX-Code
+
+   ...
+ Well info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input for for WL1 well data is described in section 
+\begin_inset LatexCommand \ref{module:wl1}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+LS0 -- Enter the LS0 (discharge-specified line-sink) module
+\begin_inset LatexCommand \label{command:aem-ls0}
+
+\end_inset 
+
+
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the LS0_Read routine in order to set the properties
+ of discharge-specified line-sink elements in the model.
+ The LS0 command must have a matching END command.
+ Usage:
+\layout LyX-Code
+
+LS0 strings
+\layout Standard
+
+Parameters for the LS0 command
+\layout Standard
+
+Parameters for the LS0 command:
+\layout Description
+
+strings The number of strings of line-sinks in the LS0 module.
+\layout Standard
+
+Sample LS0 command
+\layout LyX-Code
+
+LS0 10   
+\layout LyX-Code
+
+   ...
+ String info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for LS0 data is specified in section 
+\begin_inset LatexCommand \ref{module:ls0}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+LS1 -- Enter the LS1 (head-specified line-sink) module
+\begin_inset LatexCommand \label{command:aem-ls1}
+
+\end_inset 
+
+ 
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the LS1_Read routine in order to set the properties
+ of head-specified line-sink elements in the model.
+ The LS1 command must have a matching END command.
+ Usage:
+\layout LyX-Code
+
+LS1 strings
+\layout Standard
+
+Parameters for the LS1 command:
+\layout Description
+
+strings The number of strings of line-sinks
+\layout Standard
+
+Sample LS1 command:
+\layout LyX-Code
+
+LS1 10
+\layout LyX-Code
+
+   ...
+ string info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for LS1 data is specified in section 
+\begin_inset LatexCommand \ref{module:hb0}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+LS2 - Enter the resistance line-sink module
+\begin_inset LatexCommand \label{command:aem-ls2}
+
+\end_inset 
+
+
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the properties of head-specified line-sink elements
+ with resistance.
+ The LS2 command must have a matching END command.
+ Usage:
+\layout LyX-Code
+
+LS2 strings
+\layout Standard
+
+Parameters for the LS2 command:
+\layout Description
+
+strings The number of strings of line-sinks
+\layout Standard
+
+Sample LS1 command:
+\layout LyX-Code
+
+LS2 10
+\layout LyX-Code
+
+   ...
+ string info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for LS2 Strings is specified in section 
+\begin_inset LatexCommand \ref{module:ls2}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+HB0 - Enter the HB0 (No-flow boundary) module
+\begin_inset LatexCommand \label{command:aem-hb0}
+
+\end_inset 
+
+ 
+\layout Standard
+
+This command is used to enter the HB0_Read routine in order to set the propertie
+s of no-flow boundaries in the model.
+ The HB0 command must have a matching END command.
+ Usage:
+\layout LyX-Code
+
+HB0 strings
+\layout Standard
+
+Parameters for the HB0 command:
+\layout Description
+
+strings The number of strings of vertices defining the no-flow boundaries
+\layout Standard
+
+Sample HB0 command
+\layout LyX-Code
+
+HB0 10 
+\layout LyX-Code
+
+   ...
+ String info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for data lines in HB0 module is specified in section 
+\begin_inset LatexCommand \ref{module:hb0}
+
+\end_inset 
+
+.
+\layout Subsubsection
+
+PD0 -- Enter the PD0 (Discharge-specified pond) module
+\begin_inset LatexCommand \label{command:aem-pd0}
+
+\end_inset 
+
+
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the PD0_Read routine in order to set the properties
+ of discharge-specified pond elements in the model.
+ The PD0 command must have a matching END command.
+ Non-comment lines between the PD0 command and the END command specify the
+ parameters of the wells in the module.
+ Usage:
+\layout LyX-Code
+
+PD0 ponds
+\layout Standard
+
+Parameters for the PD0 command:
+\layout Description
+
+ponds The (integer) number of ponds
+\layout Standard
+
+Sample PD0 command:
+\layout LyX-Code
+
+PD0 10
+\layout LyX-Code
+
+   ...
+ pond info goes here ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+The input format for PD0 pond data is described in section
+\begin_inset LatexCommand \ref{module:pd0}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+AS0 -- Enter the AS0 (discharge-specified area sink) module
+\begin_inset LatexCommand \label{command:aem-as0}
+
+\end_inset 
+
+ 
+\layout Standard
+
+This command occurs within the AEM module.
+ It is used to enter the AS0_Read routine in order to set the properties
+ of discharge-specified area sink elements in the model.
+ The AS0 command must have a matching END command.
+ Non-comment lines between the AS0 command and the END command specify the
+ vertices which define the boundaries of the discharge-specified area sink.
+ Usage:
+\layout LyX-Code
+
+AS0 Vertices Top-Recharge Bottom-Recharge
+\layout Standard
+
+Parameters for the AS0 command:
+\layout Description
+
+Vertices The (integer) number of vertices which delineate the boundaries
+ of the area sink
+\layout Description
+
+Top-Recharge The (real) recharge rate through the top of the area sink.
+\layout Description
+
+Bottom-Recharge The (real) recharge rate through the bottom of the area
+ sink.
+\layout Standard
+
+Sample AS0 command:
+\layout LyX-Code
+
+AS0 10 1.0 1.0
+\layout LyX-Code
+
+   (10,10)
+\layout LyX-Code
+
+   (20,20)
+\layout LyX-Code
+
+   ...
+ 
+\layout LyX-Code
+
+END
+\layout Standard
+
+The data lines within the AS0 module take the form:
+\layout LyX-Code
+
+[z]
+\layout Standard
+
+where the location of the vertex is given by 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ with given discharge (real), radius (real), and id (integer).Note that in
+ Fortran free--format reads, the two parts of the complex coordinate are
+ provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+(10,10)
+\layout Standard
+
+defines a vertex of the boundary of the discharge-specified area sink at
+ 
+\begin_inset Formula \( (10,10) \)
+\end_inset 
+
+.
+\layout Subsection
+
+AQU Module
+\begin_inset LatexCommand \label{module:aqu}
+
+\end_inset 
+
+
+\layout Subsubsection
+
+REF -- Reference point command
+\begin_inset LatexCommand \label{command:aqu-ref}
+
+\end_inset 
+
+
+\layout Standard
+
+The REF command occurs within the AQU module.
+ The REF command is optional.
+ It gives the head at a reference point and the (optional) uniform flow
+ for the aquifer.
+ Usage:
+\layout LyX-Code
+
+REF [z] head {[Q]}
+\layout Standard
+
+Parameters for the REF command:
+\layout Description
+
+[z] the location, 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ of the reference point.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ 
+\layout Description
+
+head The (real) head at the reference point.
+\layout Description
+
+[Q](optional) The (complex) uniform flow, 
+\begin_inset Formula \( Q=Q_{x}+iQ_{y} \)
+\end_inset 
+
+ at the reference point.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ 
+\layout Standard
+
+Sample REF command:
+\layout LyX-Code
+
+REF (0,0) 100.0
+\layout Standard
+
+Establishes a reference point at coordinate 
+\begin_inset Formula \( (0,0) \)
+\end_inset 
+
+ with head 
+\begin_inset Formula \( 100 \)
+\end_inset 
+
+, and gives no uniform flow.
+\layout Standard
+
+
+\emph on 
+Vic - you'd better explain the uniform flow argument.
+\layout Subsubsection
+
+BDY - Boundary command
+\begin_inset LatexCommand \label{command:aqu-bdy}
+
+\end_inset 
+
+
+\layout Standard
+
+The BDY command is used to delineate the elements at the boundary of a finite
+ aquifer.
+ It must occur within the AQU module.
+ The BDY command is followed by a string of data records and ends when another
+ command is encountered.
+ Each data line consists of two end-points, a reference head (real), a flux
+ (real) and a logical flag .
+ Sample BDY command:
+\layout LyX-Code
+
+AQU ...
+\layout LyX-Code
+
+   REF ...
+\layout LyX-Code
+
+   BDY
+\layout LyX-Code
+
+      (10,10) (20,20) 100.0
+\layout LyX-Code
+
+      (20,20) (30,30) 99.5
+\layout LyX-Code
+
+       ...
+\layout LyX-Code
+
+END
+\layout Standard
+
+
+\emph on 
+Vic - here's another one that could use a better explanation than I know
+ how to give.
+\layout Subsubsection
+
+PRM -- Perimeter command
+\begin_inset LatexCommand \label{command:aqu-prm}
+
+\end_inset 
+
+ 
+\layout Standard
+
+The PRM command is used to delineate the perimeter of a finite aquifer.
+ It occurs within the AQU module.
+ An error results if the perimeter is specified and the user requests any
+ flow conditions outside the perimeter.
+ Usage:
+\layout LyX-Code
+
+PRM default-val
+\layout Standard
+
+Parameters for the PRM command:
+\layout Description
+
+default-val The default value to be used if the user requests a value (head,
+ potential, recharge, velocity, discharge) at a point outside the perimeter.
+ Use an easily recognizable number (e.g.
+ -9999).
+\layout Standard
+
+Sample PRM command:
+\layout LyX-Code
+
+AEM ...
+\layout LyX-Code
+
+   REF ...
+\layout LyX-Code
+
+   PRM -9999
+\layout LyX-Code
+
+      (1000,1000)
+\layout LyX-Code
+
+      (1000,-1000)
+\layout LyX-Code
+
+      (-1000, -1000)
+\layout LyX-Code
+
+      (-1000, 1000)
+\layout LyX-Code
+
+END
+\layout Subsubsection
+
+IN0 -- Enter the IN0 (inhomogeneity) module
+\begin_inset LatexCommand \label{command:aqu-in0}
+
+\end_inset 
+
+
+\layout Standard
+
+Used to enter the inhomogeneity module.
+ The IN0 command occurs within the AQU module and must have a corresponding
+ END command.
+ This command takes no parameters.
+\layout Subsection
+
+IN0 Module
+\begin_inset LatexCommand \label{module:in0}
+
+\end_inset 
+
+
+\layout Standard
+
+Inhomogeneities in the model domain are delineated in the IN0 module.
+\layout Subsubsection
+
+DOM -- Define inhomogeneity.
+\layout Standard
+
+The DOM command is used to define an inhomogeneity in the aquifer.
+ It must occur within the IN0 module.
+ There should be one DOM command for each inhomogeneity specified in the
+ AQU command.
+ The DOM command is allow only within the IN0 module.
+ Usage:
+\layout LyX-Code
+
+DOM Vertices Base Thickness Conductivity Porosity
+\layout Standard
+
+Parameters for the DOM command:
+\layout Description
+
+Domains The (integer) number of vertices which delineate the boundaries
+ of the inhomogeneity
+\layout Description
+
+Base The base elevation (real) of the aquifer
+\layout Description
+
+Thickness The thickness (real) of the aquifer
+\layout Description
+
+Conductivity The hydraulic conductivity (real) of the aquifer
+\layout Description
+
+Porosity Porosity (real) of the aquifer
+\layout Standard
+
+Sample DOM command:
+\layout LyX-Code
+
+AQU 2 0.0 10.0 100.0 0.25
+\layout LyX-Code
+
+   IN0
+\layout LyX-Code
+
+      DOM 10 0.0 10.0 50.0 0.25
+\layout LyX-Code
+
+         (10,10)
+\layout LyX-Code
+
+         (20,20)
+\layout LyX-Code
+
+         ...
+ 
+\layout LyX-Code
+
+   END
+\layout LyX-Code
+
+END
+\layout Subsection
+
+WL0 Module
+\begin_inset LatexCommand \label{module:wl0}
+
+\end_inset 
+
+
+\layout Standard
+
+The WL0 module is used to add discharge-specified wells to the analytic
+ element model.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-wl0}
+
+\end_inset 
+
+for a description of the WL0 command used to enter the WL0 module.
+ Within the WL0 module, only data lines can be entered.
+ Data lines take the form:
+\layout LyX-Code
+
+[z] discharge radius id
+\layout Standard
+
+defines a discharge-specified well at location 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ with given discharge (real), radius (real), and id (integer).Note that in
+ Fortran free--format reads, the two parts of the complex coordinate are
+ provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+(50,50) 100.0 0.1 1 
+\layout Standard
+
+defines well 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ at coordinate 
+\begin_inset Formula \( (50,50) \)
+\end_inset 
+
+ with discharge 
+\begin_inset Formula \( 100.0 \)
+\end_inset 
+
+ and radius 
+\begin_inset Formula \( 0.1 \)
+\end_inset 
+
+.
+\layout Subsection
+
+WL1 Module
+\begin_inset LatexCommand \label{module:wl1}
+
+\end_inset 
+
+
+\layout Standard
+
+The WL1 module is used to add head-specified wells to the analytic element
+ model.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-wl1}
+
+\end_inset 
+
+ for a description of the WL1 command used to enter the WL1 module.
+ Within the WL1 module, only data line can be entered.
+ Data lines take the form:
+\layout LyX-Code
+
+[z1] radius [z2] head id
+\layout Standard
+
+defines a well at location 
+\begin_inset Formula \( z_{1}=x_{1}+iy_{1} \)
+\end_inset 
+
+ with given radius (real) and with head (real) specified at location 
+\begin_inset Formula \( z_{2}=x_{2}+iy_{2} \)
+\end_inset 
+
+and id (integer).
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the line
+\layout LyX-Code
+
+(50.0,50.0) 0.1 (100.0,100.0) 100.0 1
+\layout Standard
+
+defines well 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ at coordinate 
+\begin_inset Formula \( (50,50) \)
+\end_inset 
+
+ with radius 
+\begin_inset Formula \( 0.1 \)
+\end_inset 
+
+ and with the head specified at 100 at coordinate 
+\begin_inset Formula \( (100,100) \)
+\end_inset 
+
+.
+\layout Subsection
+
+LS0 Module
+\begin_inset LatexCommand \label{module:ls0}
+
+\end_inset 
+
+
+\layout Standard
+
+The LS0 module is used to add discharge-specified line sink elements within
+ the AEM module.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-ls0}
+
+\end_inset 
+
+ for a description of the LS0 command used to enter the LS0 module.
+ Within the LS0 module, the only command allowed is the STR command, which
+ is used to define a string of line sinks.
+ 
+\layout Subsubsection
+
+STR Command -- string of discharge-specified line sinks.
+\layout Standard
+
+The STR command within the LS0 module is used to add strings of discharge-specif
+ied line sinks to the model domain.
+ Usage:
+\layout LyX-Code
+
+STR vertices id
+\layout Standard
+
+parameters for the STR command:
+\layout Description
+
+vertices the number of vertices (integer) for the string
+\layout Description
+
+id the string id (integer)
+\layout Standard
+
+Sample STR command:
+\layout LyX-Code
+
+LS0 10
+\layout LyX-Code
+
+   STR 2 1
+\layout LyX-Code
+
+      (10,10) 100
+\layout LyX-Code
+
+      (20,20) 95
+\layout LyX-Code
+
+   STR 10 2
+\layout LyX-Code
+
+      ...
+\layout LyX-Code
+
+   STR...
+   
+\layout LyX-Code
+
+END
+\layout LyX-Code
+
+\layout Standard
+
+The data records for which occur after each STR command specify the vertices
+ for the line sinks within that string.
+ The data record takes the format:
+\layout LyX-Code
+
+[z] discharge
+\layout Standard
+
+defines a one vertex of a string of discharge-specified line sinks at location
+ 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ with given discharge (real).
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+\layout Subsection
+
+LS1 Module
+\begin_inset LatexCommand \label{module:ls1}
+
+\end_inset 
+
+
+\layout Standard
+
+The LS1 module is used to add head-specified line sink elements within the
+ AEM module.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-ls1}
+
+\end_inset 
+
+for a description of the LS1 command used to enter the LS1 module.
+ Within the LS1 module, the only command allowed is the STR command, which
+ is used to define a string of line sinks.
+ 
+\layout Subsubsection
+
+STR Command -- string of head-specified line sinks.
+\layout Standard
+
+The STR command within the LS1 module is used to add strings of discharge-specif
+ied line sinks to the model domain.
+ Usage:
+\layout LyX-Code
+
+STR vertices id
+\layout Standard
+
+parameters for the STR command:
+\layout Description
+
+vertices the number of vertices (integer) for the string
+\layout Description
+
+id the string id (integer)
+\layout Standard
+
+Sample STR command:
+\layout LyX-Code
+
+LS1 10
+\layout LyX-Code
+
+   STR 2 1
+\layout LyX-Code
+
+      (10,10) 100
+\layout LyX-Code
+
+      (20,20) 95
+\layout LyX-Code
+
+   STR 10 2
+\layout LyX-Code
+
+      ...
+\layout LyX-Code
+
+   STR ...
+   
+\layout LyX-Code
+
+END
+\layout LyX-Code
+
+\layout Standard
+
+The data records for which occur after each STR command specify the vertices
+ for the line sinks within that string.
+ The data record takes the format:
+\layout LyX-Code
+
+[z] head
+\layout Standard
+
+defines one vertex of a string of head-specified line sink at location 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ with given head (real).
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+\layout Subsection
+
+LS2 Module
+\begin_inset LatexCommand \label{module:ls2}
+
+\end_inset 
+
+
+\layout Standard
+
+The LS2 module is used to add head-specified line sink elements with resistance
+ within the AEM module.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-ls2}
+
+\end_inset 
+
+for a description of the LS2 command used to enter the LS2 module.
+ Within the LS2 module, the only command allowed is the STR command, which
+ is used to define a string of line sinks.
+ 
+\layout Subsubsection
+
+STR Command -- string of head-specified line sinks.
+\layout Standard
+
+The STR command within the LS1 module is used to add strings of discharge-specif
+ied line sinks to the model domain.
+ Usage:
+\layout LyX-Code
+
+STR vertices c w d route-id drain-en route-en id
+\layout Standard
+
+Parameters for the STR command:
+\layout Description
+
+vertices The maximum number of vertices along the modeled stream reach
+\layout Description
+
+c The 'resistance' of the line-sink, in units of time (e.g.
+ days).
+ This is the reciprocal of the MODFLOW 'leakance', and is computed as 
+\begin_inset Formula \( \frac{Thickness}{K} \)
+\end_inset 
+
+where 
+\begin_inset Formula \( Thickness \)
+\end_inset 
+
+ is the thickness of the resistance layer and 
+\begin_inset Formula \( K \)
+\end_inset 
+
+ is the vertical hydraulic conductivity? of the resistance layer)
+\layout Description
+
+w The width of the stream
+\layout Description
+
+d The 'depth', defined as the distance from the water level in the stream
+ (the specified heads at the vertices) to the bottom of the resistance layer.
+ This is used to determine whether the line-sink is 'percolating', in a
+ manner similar to the MODFLOW RIV package.
+\layout Description
+
+route-id The ID number of the stream reach below this one in a stream network.
+ Set route-id = 1 if there is no downstream route.
+ 
+\layout Description
+
+drain-en Flag for 'drain' elements.
+ .true.
+ for drains, .false.
+ if not.
+ if the drain-en flag is set (
+\emph on 
+Vic - does this mean true
+\emph default 
+?), the line-sink cannot lose water (as in MODFLOW DRN package).
+\layout Description
+
+route-en Flag for enabling routine decision-making.
+ This will allow line-sinks to be 'turned off' if there is no net flow in
+ the stream reach, according to the routing package.
+ This behavior is analogous to the MODFLOW STR package.
+\layout Description
+
+id The ID number for the stream reach.
+ Note that this is the tool for linking in the routing package.
+\layout Subsection
+
+HB0 Module
+\begin_inset LatexCommand \label{module:hb0}
+
+\end_inset 
+
+
+\layout Standard
+
+The HB0 module is used to no-flow boundary elements within the AEM module.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-hb0}
+
+\end_inset 
+
+for a description of the HB0 command used to enter the HB0 module.
+ Within the HB0 module, the only command allowed is the STR command, which
+ is used to define a string of vertices defining a no-flow boundary.
+ 
+\layout Subsubsection
+
+STR Command -- string of no-flow boundary vertices.
+\layout Standard
+
+The STR command within the HB0 module is used to add strings of vertices
+ which define no-flow boundaries to the model domain.
+ Usage:
+\layout LyX-Code
+
+STR vertices id
+\layout Standard
+
+parameters for the STR command:
+\layout Description
+
+vertices the number of vertices (integer) for the string
+\layout Description
+
+id the string id (integer)
+\layout Standard
+
+Sample STR command:
+\layout LyX-Code
+
+HB0 10
+\layout LyX-Code
+
+   STR 2 1
+\layout LyX-Code
+
+      (10,10)
+\layout LyX-Code
+
+      (20,20)
+\layout LyX-Code
+
+   STR 10 2
+\layout LyX-Code
+
+      ...
+\layout LyX-Code
+
+   STR ...
+   decison
+\layout LyX-Code
+
+END
+\layout Standard
+
+The data records for which occur after each STR command specify the vertices
+ for the no-flow boundary defined by that string.
+ The data record takes the format:
+\layout LyX-Code
+
+[z]
+\layout Standard
+
+defines one vertex at location 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+.
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+\layout Subsection
+
+PD0 Module
+\begin_inset LatexCommand \label{module:pd0}
+
+\end_inset 
+
+
+\layout Standard
+
+The PD0 module is used to add discharge-specified ponds to the analytic
+ element model.
+ See section 
+\begin_inset LatexCommand \ref{command:aem-pd0}
+
+\end_inset 
+
+for a description of the PD0 command used to enter the PD0 module.
+ Within the PD0 module, only data lines can be entered.
+ Data lines take the form:
+\layout LyX-Code
+
+[z] discharge radius id
+\layout Standard
+
+defines a discharge-specified pond with center at location 
+\begin_inset Formula \( z=x+iy \)
+\end_inset 
+
+ with given discharge (real), radius (real), and id (integer).
+ Note that in Fortran free--format reads, the two parts of the complex coordinat
+e are provided as 
+\begin_inset Formula \( (x,y) \)
+\end_inset 
+
+ pairs.
+ Thus, the command
+\layout LyX-Code
+
+(50,50) 100.0 100.0 1 
+\layout Standard
+
+defines pond 
+\begin_inset Formula \( 1 \)
+\end_inset 
+
+ at coordinate 
+\begin_inset Formula \( (50,50) \)
+\end_inset 
+
+ with discharge 
+\begin_inset Formula \( 100.0 \)
+\end_inset 
+
+ and radius 
+\begin_inset Formula \( 100.0 \)
+\end_inset 
+
+.
+\layout Chapter
+
+Output Formats
+\layout Standard
+
+This chapter will describe ModAEM output files.
+\layout Chapter
+
+Validation
+\layout Standard
+
+This chapter will describe validation of ModAEM results.
+\the_end
