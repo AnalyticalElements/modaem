@@ -1,0 +1,48 @@
+  00001>> # Test a single aquifer with linesinks
+  00002>>  aem
+       **  Reading AEM module input
+  00003>>    aqu 1 0.0 10.0 100.0 0.25
+       **    Reading AQU module input
+  00004>>    end
+       **    Leaving AQU module
+  00005>>    ls1 1
+       **    Reading LS1 module input
+  00006>>      str 5 1
+  00007>>        (0,-50) 101
+  00008>>        (0,-25) 100.5
+  00009>>        (0,0)   100
+  00010>>        (0,25)  99.5
+  00011>>        (0,50)  99
+  00012>>    end
+       **    Leaving LS1 module
+  00013>>  end
+       **  Leaving AEM module
+  00014>> # Solve it (one iteration)
+  00015>>  sol 1
+       **  Allocating space for functions and matrix
+       **  Allocating matrix
+       **  Generating matrix
+       **  Decomposing matrix
+       **  Generating solution...
+       **    Iteration:     1
+       **  Solution complete
+  00016>> # Make a grid of heads and streamfunctions for matlab
+  00017>>  gri
+       **  Entering GRI module
+  00018>>    opt matlab
+       **    Selecting Matlab output
+  00019>>    win (-100.0,-100.0) (100.0,100.0)
+  00020>>    dim 50
+  00021>>    hea modaem
+       **    Generating a grid of heads
+       **    Writing grid to modaem_head.m
+  00022>>    psi modaem
+       **    Generating a grid of the streamfunction
+       **    Writing grid to modaem_psi.m
+  00023>>  end
+       **  Leaving GRI module
+  00024>> # Dump my data structures to the .out file
+  00025>>  rpt
+  00026>> # That's all, folks!
+  00027>>  eod
+       **  EOD Encountered -- Job complete

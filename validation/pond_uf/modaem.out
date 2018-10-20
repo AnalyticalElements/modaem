@@ -1,0 +1,193 @@
+Report for module MAT
+
+Matrix solver information
+Number of equations:   available:     1  used:     1
+Number of unknowns:    available:     1  used:     1
+Condition number:  0.00000E+00
+
+Matrix equation generator data
+
+Equation  Type      Element   String    Vertex    # CPs
+      1         0         1         1         0         1
+          Control Points
+            0.000000E+00     0.000000E+00
+
+Matrix unknown variable data
+
+Element   String    Vertex    Flag      Value
+         1          1          0          0 0.000000E+00
+
+Matrix values written to grid file mat_report.grd
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module AEM
+
+Matrix equation information
+Row            EqType         EType          EString        EVertex        EFlag          SpecVal        Check
+         1              0              1              1              0              0        95000.         95000.    
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module IN0
+
+Inhomogeneity equation information
+Number of Domains:     1  used:     1
+
+Domain          1
+
+Base         0.0000    
+Thickness    10.000    
+HydCond      100.00    
+Porosity    0.25000    
+
+Vertices:
+ [None - infinite aquifer]
+
+
+ Function and Matrix values:
+
+Number of FWL functions:              0
+Number of FPD functions:              0
+Number of FDP functions:              0
+Number of Equations:                  0
+Number of Unknowns:                   0
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module AQU
+
+Aquifer information
+
+Reference Aquifer Flow Conditions
+
+
+    Reference Point:         0.000000E+00   0.000000E+00
+    Reference Head:          0.100000E+03
+    Uniform Flow Rate:       0.100000E+01   0.000000E+00
+
+Computed Values
+
+
+    Solution Constant:       0.950146E+05
+
+Boundary elements
+
+Element#  Z1                          Z2                        Strength     FDPIndex  IWLIndex  SpecHead     SpecFlux     Flag
+
+ Function and Matrix values:
+
+Number of FWL functions:              0
+Number of FPD functions:              0
+Number of FDP functions:              0
+Number of Equations:                  1
+Number of Unknowns:                   1
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module WL0
+
+Well element information
+ No Wells Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module WL1
+
+Head-specified well element information
+ No Wells Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module PD0
+
+Pond element information
+ Number of ponds:     1  used:     1
+ Ponds:
+    ID               X              Y         Discharge      Radius       FPD Index
+         1    -0.50000D+02    0.00000D+00   -0.79577D-01    0.20000D+02            1
+
+ Function and Matrix values:
+
+Number of FWL functions:              0
+Number of FPD functions:              1
+Number of FDP functions:              0
+Number of Equations:                  0
+Number of Unknowns:                   0
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS0
+
+Discharge-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS1
+
+Head-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module HB0
+
+No-flow boundary information
+No Strings Allocated
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS2
+
+Head-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FWL
+
+Well function information
+Number of well functions:     0
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FPD
+
+Pond function information
+Number of pond functions:     1
+
+Geometric parameters
+Index    ZC                            Radius
+    1    -0.50000D+02    0.00000D+00    0.20000D+02
+Strength parameters
+Index    Discharge
+    1    -0.79577D-01
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FDP
+
+Line-dipole function information
+Number of dipole/doublet functions:     0
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module MAT
+
+Matrix solver information
+Number of equations:   available:     1  used:     1
+Number of unknowns:    available:     1  used:     1
+Condition number:  0.10000E+01
+
+Matrix equation generator data
+
+Equation  Type      Element   String    Vertex    # CPs
+      1         0         1         1         0         1
+          Control Points
+            0.000000E+00     0.000000E+00
+
+Matrix unknown variable data
+
+Element   String    Vertex    Flag      Value
+         1          1          0          0 0.950146E+05
+
+Matrix values written to grid file mat_report.grd
+
+
+------------------------------------------------------------------------------------------------------------------------------------

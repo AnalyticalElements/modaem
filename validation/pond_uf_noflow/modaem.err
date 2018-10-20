@@ -1,0 +1,101 @@
+  00001>> # valid3 - test ponds and no-flows
+  00002>>  aem 100 100 100 100 100
+       **  Reading AEM module input
+  00003>>    dbg t
+  00004>>    aqu 1 0.0 10.0 100.0 0.25
+       **    Reading AQU module input
+  00005>>      ref (-100.0,0.0) 100.0 (1.0,0.0)
+  00006>>    end
+       **    Leaving AQU module
+  00007>>    pd0 2
+       **    Reading PD0 module input
+  00008>>      ( 50,0)  0.079577 20.0 1
+  00009>>      (-50,0) -0.079577 20.0 1
+  00010>>    end
+       **    Leaving PD0 module
+  00011>>    hb0 1
+       **    Reading HB0 module input
+  00012>>      str 7 1
+       **  HB0_Read:      7 vertices allocated
+  00013>>        ( 40,-25)
+  00014>>        ( 40,-20)
+  00015>>        ( 40,-10)
+  00016>>        ( 40,  0)
+  00017>>        ( 40, 10)
+  00018>>        ( 40, 20)
+  00019>>        ( 40, 25)
+  00020>>    end
+       **    Leaving HB0 module
+  00021>>  end
+       **  Leaving AEM module
+  00022>>  sol 1
+       **  Allocating space for functions and matrix
+       **  Allocating matrix
+       **  Generating matrix
+       **  Decomposing matrix
+       **  Generating solution...
+       **    Iteration:     1
+       **  Solution complete
+  00023>>  gri
+       **  Entering GRI module
+  00024>>    opt matlab
+       **    Selecting Matlab output
+  00025>>    win (-100.0,-100.0) (100.0,100.0)
+  00026>>    dim 50
+  00027>>    hea modaem
+       **    Generating a grid of heads
+       **    Writing grid to modaem_head.m
+  00028>>    psi modaem
+       **    Generating a grid of the streamfunction
+       **    Writing grid to modaem_psi.m
+  00029>>    q_x  modaem
+       **    Generating a grid of Qx
+       **    Writing grid to modaem_qx.m
+  00030>>    q_y  modaem
+       **    Generating a grid of Qy
+       **    Writing grid to modaem_qy.m
+  00031>>  end
+       **  Leaving GRI module
+  00032>>  tr0
+       **  Entering 2-D trace module TR0
+  00033>>    win (-100.0,-100.0) (100.0,100.0)
+       >> Default tuning parameters are selected for the new window
+  00034>>    tun 1 3 0.1 3
+       >> Specified tuning parameters are in use
+  00035>>    fil modaem
+  00036>>    poi (-31.000000,  0.000000) 0 0 0 1
+       **   Starting point: -0.310000E+02  0.000000E+00  Direction:  1
+  00037>>    poi (-31.365080,  3.706716) 0 0 0 1
+       **   Starting point: -0.313651E+02  0.370672E+01  Direction:  1
+  00038>>    poi (-32.446289,  7.270985) 0 0 0 1
+       **   Starting point: -0.324463E+02  0.727098E+01  Direction:  1
+  00039>>    poi (-34.202077, 10.555834) 0 0 0 1
+       **   Starting point: -0.342021E+02  0.105558E+02  Direction:  1
+  00040>>    poi (-36.564971, 13.435029) 0 0 0 1
+       **   Starting point: -0.365650E+02  0.134350E+02  Direction:  1
+  00041>>    poi (-39.444166, 15.797923) 0 0 0 1
+       **   Starting point: -0.394442E+02  0.157979E+02  Direction:  1
+  00042>>    poi (-42.729015, 17.553711) 0 0 0 1
+       **   Starting point: -0.427290E+02  0.175537E+02  Direction:  1
+  00043>>    poi (-46.293284, 18.634920) 0 0 0 1
+       **   Starting point: -0.462933E+02  0.186349E+02  Direction:  1
+  00044>>    poi (-50.000000, 19.000000) 0 0 0 1
+       **   Starting point: -0.500000E+02  0.190000E+02  Direction:  1
+  00045>>    poi (-53.706716, 18.634920) 0 0 0 1
+       **   Starting point: -0.537067E+02  0.186349E+02  Direction:  1
+  00046>>    poi (-57.270985, 17.553711) 0 0 0 1
+       **   Starting point: -0.572710E+02  0.175537E+02  Direction:  1
+  00047>>    poi (-60.555834, 15.797923) 0 0 0 1
+       **   Starting point: -0.605558E+02  0.157979E+02  Direction:  1
+  00048>>    poi (-63.435029, 13.435029) 0 0 0 1
+       **   Starting point: -0.634350E+02  0.134350E+02  Direction:  1
+  00049>>    poi (-65.797923, 10.555834) 0 0 0 1
+       **   Starting point: -0.657979E+02  0.105558E+02  Direction:  1
+  00050>>    poi (-67.553711,  7.270985) 0 0 0 1
+       **   Starting point: -0.675537E+02  0.727098E+01  Direction:  1
+  00051>>    poi (-68.634920,  3.706716) 0 0 0 1
+       **   Starting point: -0.686349E+02  0.370672E+01  Direction:  1
+  00052>>  end
+  00053>>  rpt
+  00054>>  eod
+       **  EOD Encountered -- Job complete

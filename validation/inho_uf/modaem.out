@@ -1,0 +1,539 @@
+Report for module MAT
+
+Matrix solver information
+Number of equations:   available:    25  used:    25
+Number of unknowns:    available:    25  used:    25
+Condition number:  0.00000E+00
+
+Matrix equation generator data
+
+Equation  Type      Element   String    Vertex    # CPs
+      1         2         7         2         1         1
+          Control Points
+           -0.350000E+02    -0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      2         2         7         2         1         1
+          Control Points
+           -0.250000E+02    -0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      3         2         7         2         2         1
+          Control Points
+           -0.150000E+02    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      4         2         7         2         2         1
+          Control Points
+           -0.500000E+01    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      5         2         7         2         3         1
+          Control Points
+            0.500000E+01    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      6         2         7         2         3         1
+          Control Points
+            0.150000E+02    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      7         2         7         2         4         1
+          Control Points
+            0.250000E+02    -0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      8         2         7         2         4         1
+          Control Points
+            0.350000E+02    -0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      9         2         7         2         5         1
+          Control Points
+            0.400000E+02    -0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     10         2         7         2         5         1
+          Control Points
+            0.400000E+02    -0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     11         2         7         2         6         1
+          Control Points
+            0.400000E+02     0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     12         2         7         2         6         1
+          Control Points
+            0.400000E+02     0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     13         2         7         2         7         1
+          Control Points
+            0.350000E+02     0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     14         2         7         2         7         1
+          Control Points
+            0.250000E+02     0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     15         2         7         2         8         1
+          Control Points
+            0.150000E+02     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     16         2         7         2         8         1
+          Control Points
+            0.500000E+01     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     17         2         7         2         9         1
+          Control Points
+           -0.500000E+01     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     18         2         7         2         9         1
+          Control Points
+           -0.150000E+02     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     19         2         7         2        10         1
+          Control Points
+           -0.250000E+02     0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     20         2         7         2        10         1
+          Control Points
+           -0.350000E+02     0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     21         2         7         2        11         1
+          Control Points
+           -0.400000E+02     0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     22         2         7         2        11         1
+          Control Points
+           -0.400000E+02     0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     23         2         7         2        12         1
+          Control Points
+           -0.400000E+02    -0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     24         2         7         2        12         1
+          Control Points
+           -0.400000E+02    -0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     25         0         1         1         0         1
+          Control Points
+            0.000000E+00     0.000000E+00
+
+Matrix unknown variable data
+
+Element   String    Vertex    Flag      Value
+         7          2          1          1 0.000000E+00
+         7          2          1          2 0.000000E+00
+         7          2          2          1 0.000000E+00
+         7          2          2          2 0.000000E+00
+         7          2          3          1 0.000000E+00
+         7          2          3          2 0.000000E+00
+         7          2          4          1 0.000000E+00
+         7          2          4          2 0.000000E+00
+         7          2          5          1 0.000000E+00
+         7          2          5          2 0.000000E+00
+         7          2          6          1 0.000000E+00
+         7          2          6          2 0.000000E+00
+         7          2          7          1 0.000000E+00
+         7          2          7          2 0.000000E+00
+         7          2          8          1 0.000000E+00
+         7          2          8          2 0.000000E+00
+         7          2          9          1 0.000000E+00
+         7          2          9          2 0.000000E+00
+         7          2         10          1 0.000000E+00
+         7          2         10          2 0.000000E+00
+         7          2         11          1 0.000000E+00
+         7          2         11          2 0.000000E+00
+         7          2         12          1 0.000000E+00
+         7          2         12          2 0.000000E+00
+         1          1          0          0 0.000000E+00
+
+Matrix values written to grid file mat_report.grd
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module AEM
+
+Matrix equation information
+Row            EqType         EType          EString        EVertex        EFlag          SpecVal        Check
+         1              2              7              2              1              1        0.0000         0.0000    
+         2              2              7              2              1              2        0.0000         0.0000    
+         3              2              7              2              2              1        0.0000       -0.11642E-09
+         4              2              7              2              2              2        0.0000         0.0000    
+         5              2              7              2              3              1        0.0000        0.58208E-10
+         6              2              7              2              3              2        0.0000       -0.11642E-09
+         7              2              7              2              4              1        0.0000       -0.58208E-10
+         8              2              7              2              4              2        0.0000        0.11642E-09
+         9              2              7              2              5              1        0.0000        0.58208E-10
+        10              2              7              2              5              2        0.0000       -0.58208E-10
+        11              2              7              2              6              1        0.0000       -0.23283E-09
+        12              2              7              2              6              2        0.0000       -0.17462E-09
+        13              2              7              2              7              1        0.0000       -0.11642E-09
+        14              2              7              2              7              2        0.0000         0.0000    
+        15              2              7              2              8              1        0.0000         0.0000    
+        16              2              7              2              8              2        0.0000       -0.58208E-10
+        17              2              7              2              9              1        0.0000         0.0000    
+        18              2              7              2              9              2        0.0000       -0.11642E-09
+        19              2              7              2             10              1        0.0000         0.0000    
+        20              2              7              2             10              2        0.0000       -0.17462E-09
+        21              2              7              2             11              1        0.0000         0.0000    
+        22              2              7              2             11              2        0.0000       -0.11642E-09
+        23              2              7              2             12              1        0.0000       -0.11642E-09
+        24              2              7              2             12              2        0.0000       -0.11642E-09
+        25              0              1              1              0              0       0.47500E+06    0.47500E+06
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module IN0
+
+Inhomogeneity equation information
+Number of Domains:     2  used:     2
+
+Domain          1
+
+Base         0.0000    
+Thickness    10.000    
+HydCond      100.00    
+Porosity    0.25000    
+
+Vertices:
+       X             Y          FDP Ind   Vertex Str          Center Str
+
+Domain          2
+
+Base         0.0000    
+Thickness    10.000    
+HydCond      500.00    
+Porosity    0.25000    
+
+Vertices:
+       X             Y          FDP Ind   Vertex Str          Center Str
+ -0.40000D+02 -0.20000D+02            1 0.38067D+06         0.13895D+03
+ -0.20000D+02 -0.40000D+02            2 0.38039D+06         0.12009D+03
+  0.00000D+00 -0.40000D+02            3 0.38010D+06         0.12248D+03
+  0.20000D+02 -0.40000D+02            4 0.37979D+06         0.99906D+02
+  0.40000D+02 -0.20000D+02            5 0.37951D+06         0.99325D+02
+  0.40000D+02  0.00000D+00            6 0.37955D+06         0.99325D+02
+  0.40000D+02  0.20000D+02            7 0.37951D+06         0.99906D+02
+  0.20000D+02  0.40000D+02            8 0.37979D+06         0.12248D+03
+  0.00000D+00  0.40000D+02            9 0.38010D+06         0.12009D+03
+ -0.20000D+02  0.40000D+02           10 0.38039D+06         0.13895D+03
+ -0.40000D+02  0.20000D+02           11 0.38067D+06         0.14324D+03
+ -0.40000D+02  0.00000D+00           12 0.38064D+06         0.14324D+03
+
+ Function and Matrix values:
+
+Number of FWL functions:              0
+Number of FPD functions:              0
+Number of FDP functions:             12
+Number of Equations:                 24
+Number of Unknowns:                  24
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module AQU
+
+Aquifer information
+
+Reference Aquifer Flow Conditions
+
+
+    Reference Point:         0.000000E+00   0.000000E+00
+    Reference Head:          0.100000E+03
+    Uniform Flow Rate:       0.100000E+02   0.000000E+00
+
+Computed Values
+
+
+    Solution Constant:       0.948264E+05
+
+Boundary elements
+
+Element#  Z1                          Z2                        Strength     FDPIndex  IWLIndex  SpecHead     SpecFlux     Flag
+
+ Function and Matrix values:
+
+Number of FWL functions:              0
+Number of FPD functions:              0
+Number of FDP functions:             12
+Number of Equations:                 25
+Number of Unknowns:                  25
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module WL0
+
+Well element information
+ No Wells Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module WL1
+
+Head-specified well element information
+ No Wells Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module PD0
+
+Pond element information
+ No Ponds Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS0
+
+Discharge-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS1
+
+Head-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module HB0
+
+No-flow boundary information
+No Strings Allocated
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module LS2
+
+Head-specified linesink element information
+ No Strings Allocated
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FWL
+
+Well function information
+Number of well functions:     0
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FPD
+
+Pond function information
+Number of pond functions:     0
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module FDP
+
+Line-dipole function information
+Number of dipole/doublet functions:    12
+
+ Geometric parameters
+Index    ZC                            ZL
+    1    -0.30000D+02   -0.30000D+02    0.10000D+02   -0.10000D+02
+    2    -0.10000D+02   -0.40000D+02    0.10000D+02    0.00000D+00
+    3     0.10000D+02   -0.40000D+02    0.10000D+02    0.00000D+00
+    4     0.30000D+02   -0.30000D+02    0.10000D+02    0.10000D+02
+    5     0.40000D+02   -0.10000D+02    0.00000D+00    0.10000D+02
+    6     0.40000D+02    0.10000D+02    0.00000D+00    0.10000D+02
+    7     0.30000D+02    0.30000D+02   -0.10000D+02    0.10000D+02
+    8     0.10000D+02    0.40000D+02   -0.10000D+02    0.00000D+00
+    9    -0.10000D+02    0.40000D+02   -0.10000D+02    0.00000D+00
+   10    -0.30000D+02    0.30000D+02   -0.10000D+02   -0.10000D+02
+   11    -0.40000D+02    0.10000D+02    0.00000D+00   -0.10000D+02
+   12    -0.40000D+02   -0.10000D+02    0.00000D+00   -0.10000D+02
+
+Strength parameters
+Index    Rho1                          Mu*                           Rho3
+    1     0.00000D+00    0.38067D+06    0.00000D+00    0.13895D+03    0.00000D+00    0.38039D+06
+    2     0.00000D+00    0.38039D+06    0.00000D+00    0.12009D+03    0.00000D+00    0.38010D+06
+    3     0.00000D+00    0.38010D+06    0.00000D+00    0.12248D+03    0.00000D+00    0.37979D+06
+    4     0.00000D+00    0.37979D+06    0.00000D+00    0.99906D+02    0.00000D+00    0.37951D+06
+    5     0.00000D+00    0.37951D+06    0.00000D+00    0.99325D+02    0.00000D+00    0.37955D+06
+    6     0.00000D+00    0.37955D+06    0.00000D+00    0.99325D+02    0.00000D+00    0.37951D+06
+    7     0.00000D+00    0.37951D+06    0.00000D+00    0.99906D+02    0.00000D+00    0.37979D+06
+    8     0.00000D+00    0.37979D+06    0.00000D+00    0.12248D+03    0.00000D+00    0.38010D+06
+    9     0.00000D+00    0.38010D+06    0.00000D+00    0.12009D+03    0.00000D+00    0.38039D+06
+   10     0.00000D+00    0.38039D+06    0.00000D+00    0.13895D+03    0.00000D+00    0.38067D+06
+   11     0.00000D+00    0.38067D+06    0.00000D+00    0.14324D+03    0.00000D+00    0.38064D+06
+   12     0.00000D+00    0.38064D+06    0.00000D+00    0.14324D+03    0.00000D+00    0.38067D+06
+
+------------------------------------------------------------------------------------------------------------------------------------
+Report for module MAT
+
+Matrix solver information
+Number of equations:   available:    25  used:    25
+Number of unknowns:    available:    25  used:    25
+Condition number:  0.83778E-13
+
+Matrix equation generator data
+
+Equation  Type      Element   String    Vertex    # CPs
+      1         2         7         2         1         1
+          Control Points
+           -0.350000E+02    -0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      2         2         7         2         1         1
+          Control Points
+           -0.250000E+02    -0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      3         2         7         2         2         1
+          Control Points
+           -0.150000E+02    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      4         2         7         2         2         1
+          Control Points
+           -0.500000E+01    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      5         2         7         2         3         1
+          Control Points
+            0.500000E+01    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      6         2         7         2         3         1
+          Control Points
+            0.150000E+02    -0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      7         2         7         2         4         1
+          Control Points
+            0.250000E+02    -0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      8         2         7         2         4         1
+          Control Points
+            0.350000E+02    -0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+      9         2         7         2         5         1
+          Control Points
+            0.400000E+02    -0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     10         2         7         2         5         1
+          Control Points
+            0.400000E+02    -0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     11         2         7         2         6         1
+          Control Points
+            0.400000E+02     0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     12         2         7         2         6         1
+          Control Points
+            0.400000E+02     0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     13         2         7         2         7         1
+          Control Points
+            0.350000E+02     0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     14         2         7         2         7         1
+          Control Points
+            0.250000E+02     0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     15         2         7         2         8         1
+          Control Points
+            0.150000E+02     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     16         2         7         2         8         1
+          Control Points
+            0.500000E+01     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     17         2         7         2         9         1
+          Control Points
+           -0.500000E+01     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     18         2         7         2         9         1
+          Control Points
+           -0.150000E+02     0.400000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     19         2         7         2        10         1
+          Control Points
+           -0.250000E+02     0.350000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     20         2         7         2        10         1
+          Control Points
+           -0.350000E+02     0.250000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     21         2         7         2        11         1
+          Control Points
+           -0.400000E+02     0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     22         2         7         2        11         1
+          Control Points
+           -0.400000E+02     0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     23         2         7         2        12         1
+          Control Points
+           -0.400000E+02    -0.500000E+01
+
+Equation  Type      Element   String    Vertex    # CPs
+     24         2         7         2        12         1
+          Control Points
+           -0.400000E+02    -0.150000E+02
+
+Equation  Type      Element   String    Vertex    # CPs
+     25         0         1         1         0         1
+          Control Points
+            0.000000E+00     0.000000E+00
+
+Matrix unknown variable data
+
+Element   String    Vertex    Flag      Value
+         7          2          1          1 0.380672E+06
+         7          2          1          2 0.138949E+03
+         7          2          2          1 0.380389E+06
+         7          2          2          2 0.120086E+03
+         7          2          3          1 0.380096E+06
+         7          2          3          2 0.122476E+03
+         7          2          4          1 0.379793E+06
+         7          2          4          2 0.999057E+02
+         7          2          5          1 0.379510E+06
+         7          2          5          2 0.993250E+02
+         7          2          6          1 0.379549E+06
+         7          2          6          2 0.993250E+02
+         7          2          7          1 0.379510E+06
+         7          2          7          2 0.999057E+02
+         7          2          8          1 0.379793E+06
+         7          2          8          2 0.122476E+03
+         7          2          9          1 0.380096E+06
+         7          2          9          2 0.120086E+03
+         7          2         10          1 0.380389E+06
+         7          2         10          2 0.138949E+03
+         7          2         11          1 0.380672E+06
+         7          2         11          2 0.143237E+03
+         7          2         12          1 0.380643E+06
+         7          2         12          2 0.143237E+03
+         1          1          0          0 0.948264E+05
+
+Matrix values written to grid file mat_report.grd
+
+
+------------------------------------------------------------------------------------------------------------------------------------

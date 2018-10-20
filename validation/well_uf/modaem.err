@@ -1,0 +1,72 @@
+  00001>> # Test a single aquifer with a well in uniform flow
+  00002>>  aem
+       **  Reading AEM module input
+  00003>>    aqu 1 0.0 10.0 100.0 0.25
+       **    Reading AQU module input
+  00004>>      ref (0.0,0.0) 100.0 (1.0,0.0)
+  00005>>    end
+       **    Leaving AQU module
+  00006>>    wl0 1
+       **    Reading WL0 module input
+  00007>>      (50,0) 100.0 0.1 1
+  00008>>    end
+       **    Leaving WL0 module
+  00009>>  end
+       **  Leaving AEM module
+  00010>> # Solve it (one iteration)
+  00011>>  sol 1
+       **  Allocating space for functions and matrix
+       **  Allocating matrix
+       **  Generating matrix
+       **  Decomposing matrix
+       **  Generating solution...
+       **    Iteration:     1
+       **  Solution complete
+  00012>> # Make a grid of heads and streamfunctions for SURFER
+  00013>>  gri
+       **  Entering GRI module
+  00014>>    opt matlab
+       **    Selecting Matlab output
+  00015>>    win (-100.0,-100.0) (100.0,100.0)
+  00016>>    dim 50
+  00017>>    hea modaem
+       **    Generating a grid of heads
+       **    Writing grid to modaem_head.m
+  00018>>    psi modaem
+       **    Generating a grid of the streamfunction
+       **    Writing grid to modaem_psi.m
+  00019>>  end
+       **  Leaving GRI module
+  00020>> # Trace particles from the well
+  00021>>  tr0
+       **  Entering 2-D trace module TR0
+  00022>>    win (-100.0,-100.0) (100.0,100.0)
+       >> Default tuning parameters are selected for the new window
+  00023>>    tun 1 3 0.1 3
+       >> Specified tuning parameters are in use
+  00024>>    fil modaem
+  00025>>    wl0 1 16 0 0 0 0
+       >> Reverse tracing is selected from pumping well
+       **  Releasing    16 particles from well ID     1
+       **   Starting point:  0.501962E+02  0.390181E-01  Direction: -1
+       **   Starting point:  0.501663E+02  0.111114E+00  Direction: -1
+       **   Starting point:  0.501111E+02  0.166294E+00  Direction: -1
+       **   Starting point:  0.500390E+02  0.196157E+00  Direction: -1
+       **   Starting point:  0.499610E+02  0.196157E+00  Direction: -1
+       **   Starting point:  0.498889E+02  0.166294E+00  Direction: -1
+       **   Starting point:  0.498337E+02  0.111114E+00  Direction: -1
+       **   Starting point:  0.498038E+02  0.390181E-01  Direction: -1
+       **   Starting point:  0.498038E+02 -0.390181E-01  Direction: -1
+       **   Starting point:  0.498337E+02 -0.111114E+00  Direction: -1
+       **   Starting point:  0.498889E+02 -0.166294E+00  Direction: -1
+       **   Starting point:  0.499610E+02 -0.196157E+00  Direction: -1
+       **   Starting point:  0.500390E+02 -0.196157E+00  Direction: -1
+       **   Starting point:  0.501111E+02 -0.166294E+00  Direction: -1
+       **   Starting point:  0.501663E+02 -0.111114E+00  Direction: -1
+       **   Starting point:  0.501962E+02 -0.390181E-01  Direction: -1
+  00026>>  end
+  00027>> # Dump my data structures to the .out file
+  00028>>  rpt
+  00029>> # That's all, folks!
+  00030>>  eod
+       **  EOD Encountered -- Job complete

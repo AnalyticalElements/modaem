@@ -33,4 +33,11 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 file(GLOB_RECURSE sources src/*.f90)
-add_executable(prog ${sources})
+
+find_package(LAPACK REQUIRED) 
+
+include_directories(${LAPACK_INCLUDE_DIR})
+
+add_executable(modaem ${sources})
+
+target_link_libraries(modaem ${LAPACK_LIBRARIES})
