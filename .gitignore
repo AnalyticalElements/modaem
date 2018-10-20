@@ -1,0 +1,29 @@
+# Compiled Object Files
+*.slo
+*.lo
+*.o
+*.map
+*.exp
+*.lib
+
+# Compiled Dynamic libraries and executables
+*.so
+*.dll
+*.exe
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Doxygen output
+doxygen_out/
+
+# Build results
+
+[Db]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in
+[Oo]bj/
