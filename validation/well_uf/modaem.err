@@ -25,16 +25,16 @@
   00012>> # Make a grid of heads and streamfunctions for SURFER
   00013>>  gri
        **  Entering GRI module
-  00014>>    opt matlab
-       **    Selecting Matlab output
+  00014>>    opt surfer
+       **    Selecting SURFER output
   00015>>    win (-100.0,-100.0) (100.0,100.0)
   00016>>    dim 50
   00017>>    hea modaem
        **    Generating a grid of heads
-       **    Writing grid to modaem_head.m
+       **    Writing grid to modaem_head.grd
   00018>>    psi modaem
        **    Generating a grid of the streamfunction
-       **    Writing grid to modaem_psi.m
+       **    Writing grid to modaem_psi.grd
   00019>>  end
        **  Leaving GRI module
   00020>> # Trace particles from the well

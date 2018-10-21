@@ -11,7 +11,7 @@
  sol 1
 # Make a grid of heads and streamfunctions for SURFER
  gri
-   opt matlab
+   opt surfer
    win (-100.0,-100.0) (100.0,100.0)
    dim 50
    hea modaem

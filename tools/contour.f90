@@ -47,7 +47,7 @@ implicit none
   character (len=80) :: s80filename,sTemp
   real (kind=ModAEM_Real) :: rZMin,rZMax,rZIncr
 
-  call GETCL(sTemp)
+  call GETARG(1, sTemp)
   read ( unit=sTemp, fmt=*, iostat=iStat ) s80filename,rZMin,rZIncr,rZMax
   if ( iStat /= 0 ) then
     print *,"Usage: contour <filename> <minimum> <interval> <maximum>"
