@@ -23,7 +23,7 @@
 # Solve it
  sol 1
  gri
-   opt matlab
+   opt surfer
    win (-100.0,-100.0) (100.0,100.0)
    dim 51
    hea modaem

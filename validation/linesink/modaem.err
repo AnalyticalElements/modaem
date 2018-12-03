@@ -29,16 +29,16 @@
   00016>> # Make a grid of heads and streamfunctions for matlab
   00017>>  gri
        **  Entering GRI module
-  00018>>    opt matlab
-       **    Selecting Matlab output
+  00018>>    opt surfer
+       **    Selecting SURFER output
   00019>>    win (-100.0,-100.0) (100.0,100.0)
   00020>>    dim 50
   00021>>    hea modaem
        **    Generating a grid of heads
-       **    Writing grid to modaem_head.m
+       **    Writing grid to modaem_head.grd
   00022>>    psi modaem
        **    Generating a grid of the streamfunction
-       **    Writing grid to modaem_psi.m
+       **    Writing grid to modaem_psi.grd
   00023>>  end
        **  Leaving GRI module
   00024>> # Dump my data structures to the .out file

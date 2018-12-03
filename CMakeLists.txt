@@ -10,8 +10,8 @@
 # properly installed. Build using Visual Studio requires msbuild shell.
 #
 # Example Usage:
-#  mkdir buildproducts
-#  cd buildproducts
+#  mkdir build
+#  cd build
 #  cmake ..
 #  make
 #

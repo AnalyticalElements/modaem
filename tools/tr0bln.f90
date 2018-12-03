@@ -40,15 +40,16 @@ implicit none
   character (len=80) :: s80filename
   character (len=132) :: s132buf
   real (kind=ModAEM_Real),dimension(10000) :: rX,rY
+  type ( IO_Status ), pointer :: io
 
   iArg = 1
   open ( unit=kNamLU, file='modaem.nam' )
   read ( unit=kNamLU, fmt=* ) s80filename
   close ( unit=kNamLU )
   open (unit=kInLU,  file=trim(s80filename)//".tr0", action="READ", status="OLD", iostat=iStat)
-  if (IO_Assert( (iStat==0), "Could not open TR0 file" )) return
+  if (IO_Assert( (iStat==0), "Could not open TR0 file", io )) return
   open (unit=kOutLU,  file=trim(s80filename)//".bln", action="WRITE", status="REPLACE", iostat=iStat)
-  if (IO_Assert( (iStat==0), "Could not open BLN file" )) return
+  if (IO_Assert( (iStat==0), "Could not open BLN file", io )) return
 
   ! Read TR0 file and write BLN file
   do

@@ -27,3 +27,7 @@ x64/
 build/
 [Bb]in
 [Oo]bj/
+
+# Python files
+__pycache__
+*.pyc

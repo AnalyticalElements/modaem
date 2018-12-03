@@ -38,22 +38,22 @@
        **  Solution complete
   00023>>  gri
        **  Entering GRI module
-  00024>>    opt matlab
-       **    Selecting Matlab output
+  00024>>    opt surfer
+       **    Selecting SURFER output
   00025>>    win (-100.0,-100.0) (100.0,100.0)
   00026>>    dim 50
   00027>>    hea modaem
        **    Generating a grid of heads
-       **    Writing grid to modaem_head.m
+       **    Writing grid to modaem_head.grd
   00028>>    psi modaem
        **    Generating a grid of the streamfunction
-       **    Writing grid to modaem_psi.m
+       **    Writing grid to modaem_psi.grd
   00029>>    q_x  modaem
        **    Generating a grid of Qx
-       **    Writing grid to modaem_qx.m
+       **    Writing grid to modaem_qx.grd
   00030>>    q_y  modaem
        **    Generating a grid of Qy
-       **    Writing grid to modaem_qy.m
+       **    Writing grid to modaem_qy.grd
   00031>>  end
        **  Leaving GRI module
   00032>>  tr0
