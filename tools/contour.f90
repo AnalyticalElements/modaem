@@ -44,11 +44,17 @@ implicit none
   ! Locals
   integer (kind=ModAEM_Integer) :: iStat
   integer (2) :: iArg
-  character (len=80) :: s80filename,sTemp
-  real (kind=ModAEM_Real) :: rZMin,rZMax,rZIncr
+  character (len=80) :: s80filename, sTemp, minimum, interval, maximum
+  real (kind=ModAEM_Real) :: rZMin, rZMax, rZIncr
 
   call GETARG(1, sTemp)
-  read ( unit=sTemp, fmt=*, iostat=iStat ) s80filename,rZMin,rZIncr,rZMax
+  read ( unit=sTemp, fmt=*, iostat=iStat ) s80filename
+  call GETARG(2, sTemp)
+  read ( unit=sTemp, fmt=*, iostat=iStat ) rZmin
+  call GETARG(3, sTemp)
+  read ( unit=sTemp, fmt=*, iostat=iStat ) rZIncr
+  call GETARG(4, sTemp)
+  read ( unit=sTemp, fmt=*, iostat=iStat ) rZmax
   if ( iStat /= 0 ) then
     print *,"Usage: contour <filename> <minimum> <interval> <maximum>"
     stop
